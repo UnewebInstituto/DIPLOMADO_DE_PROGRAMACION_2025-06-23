@@ -1,0 +1,12 @@
+table{ width: 50%;
+        margin-left: 25%;
+    }
+    h1{
+        text-align:center;
+    }
+    /* el signo numeral en css, hace referencia del atributo "id" de etiquetas
+    */
+
+    #botones{
+        text-align: center;
+    }

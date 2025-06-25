@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/ejemplo03.css">
+</head>
+<body>
+  <h1>Ejemplo03 - Formularios</h1>
+  <!--
+    Todo formulario por omision transmite en metodo GET.
+    esto quiere decir que las variables seran visibles, a traves del enlace en la url.
+    file:///C:/DIPLOMADO_DE_PROGRAMACION_2025-06-23/HTML5_I/SAMUEL/ejemplo03.html?documento=V&numero=1234567&nombre=Ana&apellido=Vasquez&fecha_nac=1960-06-15&sexo=F&actividad%5B%5D=T&actividad%5B%5D=O&correo=ana%40gmail.com&direccion=Santa+fe%5B%27
+    ***post
+    file:///C:/DIPLOMADO_DE_PROGRAMACION_2025-06-23/HTML5_I/SAMUEL/ejemplo03.html
+  -->
+  <form method="post">
+    <table>
+      <tr>
+        <td>CEDULA:</td>
+        <td>
+          <!--
+            Atributo name="variable", corresponde al 
+            nombre de la variable, que contiene el dato a transmitir.
+            Atributo id="variable", corresponde al nombre 
+            de identificador, para CSS y JS en caso de ser requerido.
+            En el caso de la etiqueta <select> el valor delarado
+            en traves del atributo value="", de la
+            etiqueta <option>, se asocia al atributo name="" del <select>.
+          -->
+          <select name="documento" id="documento">
+              <option value="V">V</option>
+              <option value="E">E</option>
+              <option value="P">P</option>
+          </select>
+          <input type="text" name="numero" required>
+        </td>
+      </tr>
+      <tr>
+      <td>Nombre:</td>
+      <td>
+        <input type="text" name="nombre" id="nombre" required> 
+      </td>
+      </tr>
+      <tr>
+        <td>Apellido:</td>
+        <td>
+          <input type="text" name="apellido" id="apellido" required>
+        </td>
+      </tr>
+      <tr>
+      <td>FECHA DE NACIMIENTO:</td>
+      <td>
+        <input type="date" name="fecha_nac" id="fecha_nac" required>
+      </td>
+    </tr>
+      <tr>
+        <td>SEXO:</td>
+        <td>
+          <input type="radio" name="sexo" id="sexo" value="F" checked> Femenino
+          <input type="radio" name="sexo" id="sexo" value="M">Masculino
+        </td>
+      </tr>
+      <tr>
+        <td>ACTIVIDAD ECONOMICA:</td>
+        <td>
+          <!--
+            cuando se trata de <input> del tipo "checkbox" se debe tener en cuenta el uso del atributo
+            multiple y el nombre de la variable (atributo name) con corchete abriendo y cerrando.
+          -->
+          <input type="checkbox" name="actividad[]" id="actividad" multiple value="E">Estudia
+          <input type="checkbox" name="actividad[]" id="actividad" multiple value="T">Trabaja
+          <input type="checkbox" name="actividad[]" id="actividad" multiple value="O">Otra
+        </td>
+      </tr>
+      <tr>
+        <td>CORREO ELECTRONICO:</td>
+        <td>
+          <input type="email" name="correo" id="correo" required>
+        </td>
+      </tr>
+      <tr>
+        <td>DIRECCION:</td>
+        <td>
+          <textarea name="direccion" id="direccion" cols="30" rows="5" required></textarea>
+        </td>
+      </tr>
+      <tr>
+        <!--el atributo  colspan="" permite efectuar la combinacion del
+        numero de celdas que acompaña al atributo-->
+        <td colspan="2" id="botones">
+            <input type="submit" value="ENVIAR">
+            <input type="reset" value="LIMPIAR">
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>
