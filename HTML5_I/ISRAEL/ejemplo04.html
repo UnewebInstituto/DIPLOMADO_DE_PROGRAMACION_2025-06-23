@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/ejemplo04.css">
+</head>
+<body>
+  <h1>Ejemplo04</h1>
+  <form action="" 
+  method="post" 
+  enctype="multipart/form-data" 
+  onchange="salida.value=rango.value;">
+    <table>
+            <tr>
+        <td>SEMANA:</td>
+        <td>
+          <input type="week" name="semana" id="semana">
+        </td>
+      </tr>
+      <tr>
+        <td>HORA:</td>
+        <td>
+          <input type="time" name="hora" id="hora">
+        </td>
+      </tr>
+      <tr>
+        <td>FECHA Y HORA:</td>
+        <td><input type="datetime-local" name="fechahora" id="fechahora"></td>
+      </tr>
+      <tr>
+        <td>MES:</td>
+        <td><input type="month" name="mes" id="mes"></td>
+      </tr>      
+      <tr>
+        <td>BUSCAR:</td>
+        <td><input type="search" name="buscar" id="buscar"></td>
+      </tr>
+      <tr>
+        <td>URL:</td>
+        <td><input type="url" name="ruta" id="ruta"></td>
+      </tr>
+      <tr>
+        <td>COLOR:</td>
+        <td><input type="color" name="colores" id="colores"></td>
+      </tr> 
+      <tr>
+        <td>OCULTO:</td>
+        <td><input type="hidden" name="oculto" id="oculto" value="VALOR OCULTO"></td>
+      </tr>     
+      <tr>
+        <!--
+        Nota: El uso de input de tipo "file"
+        sólo es aplicable, si el formulario 
+        se transmite por método "post" y
+        se añade al formulario el atributo
+        enctype="multipart/form-data"
+        <form method="post" enctype="multipart/form-data"
+        -->
+        <td>ARCHIVO:</td>
+        <td>
+          <input type="file" name="archivo" id="archivo">
+        </td>
+      </tr>
+      <tr>
+        <td>RANGO</td>
+        <td>
+          <input type="range" name="rango" id="rango" min="0" max="100" value="0"><output name="salida">0</output>
+        </td>
+      </tr>
+      <tr>
+        <td>IMAGEN:</td>
+        <td>
+          <input type="image" name="imagen" 
+          id="imagen" src="../img/windows.jfif" alt="Imagen de Windows">
+        </td>
+      </tr>
+      <tr>
+        <td>PASSWORD:</td>
+        <td>
+          <input type="password" name="clave" id="clave">
+          <img src="../img/ver.png" 
+          id="ojo"
+          onclick="var elemento = document.getElementById('clave');
+                   var imagen = document.getElementById('ojo')
+          console.log(elemento.value);
+          if (elemento.type == 'password'){
+            elemento.type='text';
+            imagen.src='../img/nover.png';
+          }else{
+            elemento.type='password';
+            imagen.src='../img/ver.png';
+          };
+          "
+          >
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

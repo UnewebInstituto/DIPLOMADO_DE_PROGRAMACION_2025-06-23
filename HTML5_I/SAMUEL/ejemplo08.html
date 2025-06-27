@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      padding: 0px;
+      margin: 0px;
+      text-align: center;
+    }
+    #encabezado_de_pagina{
+      padding: 30px;
+      background-color: chocolate;
+    }
+    #menu{
+      background-color: #ccc;
+      padding: 20px;
+    }
+    #menu li{
+          list-style: none;
+          display: inline-block;
+          margin: 20px;
+          color: blue;
+    }
+    #contenido{
+      width: 80%;
+      margin-left: 10%;
+    }
+    #seccion, #articulo_1, #articulo_2, #apartado, #cita1, #cita2, #pie_de_pagina{
+      display: block;
+      float: left;
+    }
+    #seccion{
+      width: 50%;
+    }
+    #apartado{
+      width: 43%;
+      margin-left: 10px;
+      margin-top: 10px;
+      background-color: cadetblue;
+      padding: 25px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: gray;
+    }
+    #pie_de_pagina{
+      clear: both;
+      padding: 15px;
+      background-color: bisque;
+      text-align: center;
+      width: 100%;
+      border-style: solid;
+      border-top-style: solid;
+      border-top-width: 2px;
+      border-top-color: gray;
+      margin-top: 5px;
+    }
+    #articulo_1, #articulo_2 {
+      padding: 10px;
+      background-color: rgb(196, 196, 52);
+      margin-top: 10px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: grey;
+    }
+    #articulo_1 p{
+      text-align: justify;
+    }
+    #articulo_2 p{
+      text-align: justify;
+    }
+    #cita_1 p{
+      text-align: justify;
+    }
+    #cita_2 p{
+      text-align: justify;
+    }
+  </style>
+</head>
+<body>
+  <header id="encabezado_de_pagina">
+    <h1>Sistema Operativos</h1>
+  </header>
+  <nav id="menu">
+    <ul>
+      <a href="#"><li>Inicio</li></a>
+      <a href="#"><li>Productos</li></a>
+      <a href="#"><li>Servicios</li></a>
+      <a href="#"><li>Contactos</li></a>
+    </ul>
+  </nav>
+  <div id="contenido">
+    <section id="seccion">
+      <article id="articulo_1">
+        <h2>Windows</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quo eligendi, atque perferendis rem veritatis iusto voluptatem. Pariatur cupiditate quas, perferendis minus quibusdam maxime voluptatum distinctio aliquam, fuga deserunt rem natus quisquam corporis? Eos rerum eaque deleniti! Id praesentium unde architecto amet sequi nihil at veniam debitis incidunt aliquid repudiandae ratione, cum quo corporis illum pariatur nostrum voluptate sunt fugit fugiat, nulla mollitia placeat maxime. Pariatur consequatur magnam ea, fugit illum praesentium vero ut molestiae?</p>
+        <img src="../img/windows.jfif" alt="">
+        <p>Imagen windows</p>
+      </article>
+      <article id="articulo_2">
+        <h2>Linux</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias mollitia aliquid accusantium sit unde. Molestias dolorem a inventore reprehenderit iste atque accusamus tempore? Sunt est earum, at quis ea accusamus, magni fugit minus minima sapiente odit totam. Nam inventore amet distinctio sit error nemo est enim? Ipsa voluptate facilis molestias doloribus commodi ducimus dolores magnam, omnis, quibusdam aperiam vitae magni! Repellat, illum veritatis repellendus voluptatum cum incidunt iusto laborum distinctio illo at numquam autem doloribus?</p>
+        <img src="../img/linux.jfif" alt="">
+        <p>Imagen Linux</p>
+      </article>
+    </section>
+    </aside>
+      <aside id="apartado">
+        <blockquote id="cita_1">
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic quam facilis aperiam minima quod corporis laudantium dolores officiis velit, quae eius vero suscipit, nihil nam praesentium magni modi perspiciatis soluta ipsam? Earum, eum dicta? Possimus repellendus vero amet sapiente soluta voluptas. Dolor suscipit necessitatibus perferendis recusandae quod dolorum fuga facilis.</p>
+        </blockquote>
+        <blockquote id="cita_2">
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores rerum consequatur similique inventore provident quos nesciunt! Tempore voluptatem maiores, inventore officiis fugit obcaecati dolores facere odit accusamus voluptates consequatur deleniti illo. Inventore aut numquam quisquam alias doloribus omnis ex dolor cupiditate totam rem officiis minus sapiente provident ad quo, laborum, esse tenetur impedit suscipit quis tempore maiores nostrum dolorum itaque. Harum animi laudantium, est necessitatibus, quos molestiae rem dolorum minus impedit quibusdam sapiente ab vitae.</p>
+        </blockquote>
+      </div>
+    </aside>
+  </body>aside>
+  <footer id="pie_de_pagina">
+    HTML5 nivel 1 diplomado de programación &copy; 2025
+  </footer>
+</body>
+</html>
