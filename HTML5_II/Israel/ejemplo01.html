@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    /* Todo lo que se encuentre después del contenedor,
+    cuyo nombre de clase es 'contenido' se va a inicializar, 
+    para evitar el efecto de cajas flotando. */
+    .contenido::after{
+      content: "";
+      clear: both;
+      display: block;
+    }
+    [class*="col-"]{
+      float: left;
+      padding: 15px;
+    }
+    /* Todo lo contenido en la etiqueta <html> 
+    tendrá la fuente de letra que se indica entre llaves.
+    */
+    html{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    header{
+      background-color: blue;
+      color: white;
+      padding: 15px;
+    }
+    nav ul{
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+    }
+    nav li{
+      padding: 8px;
+      margin-top: 7px;
+      background-color: #009999;
+      color: white;
+      box-shadow: 0px 2px 3px gray;
+    }
+    a{
+      text-decoration: none;
+    }
+    nav li:hover{
+      background-color: cadetblue;
+    }
+    aside{
+      background-color: cadetblue;
+      padding: 15px;
+      color: white;
+      text-align: center;
+      font-size: 14px;
+      box-shadow: opx 2px 3px gray;
+    }
+    footer{
+      background-color: #009999;
+      color: white;
+      font-size: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 1px 1px 3px gray;
+    }
+    /* para celulares
+    Todas las etiquetas, cuyo atributo 'class' contenga
+    nombre de clase 'col-', tendrá un ancho del 100%. */
+    [class*='col-']{
+      width: 100%;
+    }
+    
+    
+    /* Ancho de columnas para dispositivo Tablet */
+    @media only screen and (min-width:600px){
+      .col-s-1{width: 8.33%;}
+      .col-s-2{width: 16.66%;}
+      .col-s-3{width: 25%;}
+      .col-s-4{width: 33.33%;}
+      .col-s-5{width: 41.66%;}
+      .col-s-6{width: 50%;}
+      .col-s-7{width: 58.33%;}
+      .col-s-8{width: 66,66%;}
+      .col-s-9{width: 75%;}
+      .col-s-10{width: 83.33%;}
+      .col-s-11{width: 91.66%;}
+      .col-s-12{width: 100%;}
+    }
+
+    /* Ancho de columnas para dispositivo Tablet */
+    @media only screen and (min-width:768px){
+      .col-1{width: 8.33%;}
+      .col-2{width: 16.66%;}
+      .col-3{width: 25%;}
+      .col-4{width: 33.33%;}
+      .col-5{width: 41.66%;}
+      .col-6{width: 50%;}
+      .col-7{width: 58.33%;}
+      .col-8{width: 66,66%;}
+      .col-9{width: 75%;}
+      .col-10{width: 83.33%;}
+      .col-11{width: 91.66%;}
+      .col-12{width: 100%;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Interface de programación de Aplicaciones (APIs) en HTML5</h1>
+  </header>
+  <div class="contenido">
+    <nav class="col-3 col-s-3 menu">
+    <ul>
+      <a href=""><li>Geolocalización</li></a>
+      <a href=""><li>Canvas</li></a>
+      <a href=""><li>Drag and drop</li></a>
+      <a href=""><li>Web worker</li></a>
+      <a href=""><li>Referencias a MDN</li></a>
+    </ul>
+  </nav>
+    <section class="col-6 col-s-9">
+      <h2>API</h2>
+      <p>Una API (Interfaz de Programación de Aplicaciones) es un conjunto de características y reglas que existen dentro de un programa de software (la aplicación) y que permiten la interacción con él a través del software, a diferencia de una interfaz de usuario humana. La API puede considerarse un simple contrato (la interfaz) entre la aplicación que la ofrece y otros elementos, como software o hardware de terceros.</p>
+      <p>En el desarrollo web, una API es generalmente un conjunto de características de código (por ejemplo, métodos , propiedades , eventos y URL ) que un desarrollador puede usar en sus aplicaciones para interactuar con componentes del navegador web de un usuario, otro software/hardware en la computadora del usuario o sitios web y servicios de terceros.
+        https://developer.mozilla.org/en-US/docs/Glossary/API
+      </p>
+    </section>
+    <aside class="col-3 col-s-12">
+      <h3>¿Características de api en el web?</h3>
+      <p> una API (Application Programming Interface) en el contexto web es un conjunto de reglas, protocolos y herramientas que permite que diferentes aplicaciones de software se comuniquen entre sí. Piensa en ella como un "menú" o "contrato" que especifica cómo un programa puede solicitar servicios o datos de otro. Sus caracteristicas son Interoperabilidad, Abstracción, Modularidad y Reusabilidad, Escalabilidad, Seguridad, Documentación, Versionamiento, Statelessness (en RESTful APIs).</p>
+      <h3>¿Para qué sirven?</h3>
+      <p>Las APIs son el motor de la web moderna. Sirven para: Integración de Servicios, Creación de Ecosistemas, esacoplamiento de Arquitecturas, Enriquecimiento de la Experiencia del Usuario, Automatización de Tareas, Desarrollo Móvil y Multiplataforma.</p>
+      <h3>¿Requisitos para su utilización?</h3>
+      <p>Para utilizar (o consumir) una API web, generalmente se necesitan los siguientes elementos: Conocimiento de HTTP/HTTPS, Cliente HTTP, URL (Endpoint) de la API, Parámetros de Solicitud, Credenciales de Autenticación/Autorización, Formato de Datos, Documentación de la API.</p>
+      <h3>¿Ejemplos de Uso?</h3>
+      <p>Las APIs están en todas partes en la web. Aquí tienes algunos ejemplos comunes:
+        APIs de Redes Sociales (Facebook Graph API, Twitter API), APIs de Mapas y Localización (Google Maps API, OpenStreetMap API), APIs de Pagos (Stripe API, PayPal API), APIs Meteorológicas (OpenWeatherMap API, AccuWeather API), APIs de Información (Wikipedia API, Star Wars API - SWAPI), APIs Internas (Microservicios).</p>
+    </aside>
+  </div>
+  <footer>
+    Ejemplo de diseño adaptativo en HTML5, Diplomado de Programación, UNEWEB &copy; 2025.
+  </footer>
+</body>
+</html>
