@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Caso 1 */
+        .caso1 label{
+            background-color: gray;
+            color: yellow;
+            padding: 10px;
+        }
+        .caso1 h4{
+            background-color: purple;
+            color: white;
+            padding: 30px;
+        }
+        .caso1 p{
+            background-color: blue;
+            color: yellow;
+            padding: 15px;
+        }
+        /* Caso 2 */
+        .caso2 #uno{
+            padding: 10px;
+            background: gray;
+            color: red;
+            border-bottom-color: yellow;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+        }
+        .caso2 #dos{
+            padding: 10px;
+            background-color: gray;
+            color: green;
+            border-bottom-color: yellow;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+        }
+        .caso2 #tres{
+            padding: 10px;
+            background-color: gray;
+            color: blue;
+            border-bottom-color: yellow;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+        }
+        /* Caso 3 */
+        .caso3 .impar{
+            padding: 15px;
+            width: 30%;
+            margin-left: 35%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            background-color: #ccc;
+            color: blue;
+            margin-bottom: 5px;
+        }
+        .caso3 .par{
+            padding: 10px;
+            width: 70%;
+            margin-left: 15%;
+            border-style: double;
+            border-width: 2px;
+            border-color: red;
+            background-color: gray;
+            color: white;
+            margin-bottom: 5px;
+        }
+        /* caso 4 */
+        .caso4 [id*='prueba']{
+            padding: 30px;
+            background-color: gray;
+            width: 50%;
+            margin-left: 25%;
+            border-style: solid;
+            border-color: black;
+        }
+        .caso4 [id^='prueba']{
+            color:lime;
+        }
+        .caso4 [id$='prueba']{
+            color:orange;
+        }
+        /* caso 5 */
+        .caso5 p:nth-child(even){
+            width:50%;
+            margin-left:50%;
+        }
+        .caso5 p:nth-child(odd){
+            width:50%;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Ejemplo03 Uso de CSS</h1>
+    <h3>Caso afectación por nombre de etiqueta</h3>
+    <div class="caso1">
+        <label for="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat natus nesciunt sint adipisci asperiores explicabo.</label>
+        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat nemo cum nesciunt similique totam iste.</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At molestiae consequuntur, excepturi nisi impedit ipsa.</p>
+    </div>
+    <!-- salto de línea -->
+    <br>
+    <!-- línea horizontal -->
+    <hr>
+    <br>
+    <h3>Caso afectación por atributo id de etiqueta</h3>
+    <div class="caso2">
+        <div id="uno">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam accusantium voluptatibus velit odit quasi nihil aspernatur quae numquam dolorem repudiandae.</div>
+        <div id="dos">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus dolor natus necessitatibus, amet tempora illo nostrum neque aliquam iusto impedit.</div>
+        <div id="tres">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas nisi ab quae exercitationem nihil officiis fuga tempora enim, nemo minima!</div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h3>Caso afectación por nombre de clase</h3>
+    <div class="caso3">
+        <p class="impar">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam praesentium quasi earum nihil nobis consequatur.</p>
+        <p class="par">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia perspiciatis distinctio cupiditate, reprehenderit odit eveniet ab beatae cum rerum iure?</p>
+        <p class="impar">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni dolorum, officiis earum eos veritatis unde.</p>
+        <p class="par">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam mollitia similique vero impedit quis voluptates at alias dolorem quaerat perspiciatis!</p>
+        <p class="impar">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis perferendis obcaecati placeat amet tenetur. Cum.</p>
+        <p class="par">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque earum soluta qui ipsam corporis assumenda atque minus? Libero, vero quia!</p>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h3>Caso afectación por caracteres comodin</h3>
+    <div class="caso4">
+        <p id="pruebacomodin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia adipisci tempora porro distinctio mollitia quae deserunt quos aliquam quo dolorum vel consectetur amet tenetur necessitatibus cumque incidunt eveniet fugiat numquam, a perferendis esse quas recusandae!</p>
+        <p id="comodinprueba">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non atque consequatur expedita exercitationem ratione! Officiis nihil ratione, ullam ea eius dignissimos necessitatibus, magni, optio eveniet odit sunt quidem incidunt. Eaque doloremque ex ducimus aperiam deserunt.</p>
+        <p id="comopruebadin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis reiciendis, eos sit consequuntur quibusdam provident dolorum facere saepe ratione iste voluptates deleniti sint eaque adipisci facilis ipsa non tempora incidunt ducimus officiis maiores numquam inventore!</p>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h3>Caso afectación basada en posición</h3>
+    <div class="caso5">
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta debitis, fugiat quos vel sequi fugit quaerat delectus quia sunt quasi aperiam. Laboriosam velit deserunt autem et delectus ad molestias odit!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam accusamus voluptatem voluptatum inventore soluta, reiciendis mollitia expedita maxime hic et cum, iure sequi, quod cupiditate dolores officia laboriosam! Provident, cumque.</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos blanditiis quidem reiciendis similique totam! Obcaecati ipsam, cupiditate sit quibusdam dolorem reiciendis ex, a ipsa modi doloribus error! Amet, voluptatum sed.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia voluptatum cum illo blanditiis molestiae ipsam laboriosam, recusandae atque quod ducimus, vel in tempora sit hic minima quaerat? Odit, quisquam recusandae!</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque repellendus eveniet fuga est, rem odio beatae reprehenderit iure, delectus ad aspernatur vel ipsa! Corporis beatae molestiae itaque laborum repellendus dicta?</p>
+    </div>
+</body>
+</html>
