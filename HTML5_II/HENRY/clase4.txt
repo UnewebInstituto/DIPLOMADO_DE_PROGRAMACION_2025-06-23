@@ -1,0 +1,135 @@
+Como desarrollador web, he analizado el código que proporcionaste y he encontrado un **error crítico** en el archivo JavaScript (`demo_workers.js`) que causará un problema cuando se intente ejecutar el Web Worker.
+
+-----
+
+### Error principal
+
+El error se encuentra en cómo se maneja la variable `i` dentro del Web Worker.
+
+  * **Alcance de la variable `i`:** Dentro del Web Worker, la variable `i` se declara como `var i = 0;` en el alcance global del script del worker. Sin embargo, la función `timedCount()` se invoca inmediatamente al cargar el worker y luego se llama recursivamente mediante `setTimeout("timedCount()",500);`.
+  * **El problema:** La función `timedCount()` intenta acceder a `i` y modificarla con `i = i + 1;` **antes** de que `var i = 0;` se haya ejecutado. Esto se debe a la forma en que los Web Workers y el JavaScript en general manejan el *hoisting* y la ejecución de scripts. Aunque `var` tiene un hoisting, la asignación de `0` no sucede hasta que la línea se ejecuta. En este caso, `timedCount()` se ejecuta **antes** de que `i` sea inicializada con `0`.
+
+-----
+
+### Consecuencias del error
+
+Cuando el Web Worker intente ejecutar `timedCount()`, `i` será `undefined` inicialmente, y la operación `i = i + 1;` resultará en `NaN` (Not-a-Number). Esto detendrá el contador y el Web Worker no funcionará como se espera.
+
+-----
+
+### Solución propuesta
+
+Para corregir este error, simplemente asegúrate de que la variable `i` esté **declarada e inicializada antes de su primer uso** en la función `timedCount()`.
+
+Aquí te muestro cómo debería verse el archivo `demo_workers.js` corregido:
+
+```javascript
+// Declaración de variable pública e inicialización
+var i = 0;
+
+// Declaración de función
+function timedCount(){
+    // Se incrementa i en 1
+    i = i + 1;
+    // Se devuelve en un mensaje el contenido de i
+    postMessage(i);
+    // Se espera 1/2 segundo y ejecuta la
+    // función timedCount()
+    setTimeout("timedCount()",500);
+}
+
+// Al primer llamado ejecuta
+// de inmediato la función timedCount()
+timedCount();
+```
+
+-----
+
+### Otra posible mejora (no un error, pero buena práctica)
+
+En la función `startworker()` en el archivo HTML, tienes la siguiente condición:
+
+```javascript
+if (typeof(w) == undefined){
+    w = new Worker("./js/demo_workers.js");
+}
+```
+
+Es más robusto y común verificar si `w` es `undefined` o `null` de la siguiente manera:
+
+```javascript
+if (!w){ // Esto verifica si w es null o undefined
+    w = new Worker("./js/demo_workers.js");
+}
+```
+
+Esto no es un error que rompa el código, pero es una mejora en la legibilidad y la forma idiomática de JavaScript.
+
+-----
+
+Si implementas esta corrección, tu Web Worker debería funcionar como esperas, incrementando el contador y enviando los datos al hilo principal para mostrarlos en la página.
+
+
+---
+### Entendiendo el Error `SecurityError`
+
+El error `Uncaught SecurityError: Failed to construct 'Worker': Script at 'file:///C:/DIPLOMADO_DE_PROGRAMACION_2025-06-23/HTML5_II/HENRY/js/demo_workers.js' cannot be accessed from origin 'null'.` es bastante común cuando se trabaja con **Web Workers** y se intenta ejecutar archivos HTML directamente desde el sistema de archivos (es decir, abriendo el archivo `ejemplo07_api_web_worker.html` con un doble clic en tu explorador de archivos).
+
+Este error no es un problema en tu código JavaScript o HTML en sí, sino una **restricción de seguridad del navegador**.
+
+---
+### La Causa del Error
+
+Los navegadores web implementan una política de seguridad llamada **"Same-Origin Policy" (Política del Mismo Origen)**. Esta política previene que scripts cargados desde un origen puedan interactuar con recursos de otro origen diferente.
+
+Cuando abres un archivo HTML directamente desde tu disco duro (usando el protocolo `file:///`), el navegador le asigna un "origen" especial que suele ser `null`. Los Web Workers, por razones de seguridad, **no pueden cargar scripts desde un origen `null`**. Esto es para evitar posibles vulnerabilidades donde un archivo local malicioso podría intentar acceder a otros archivos locales o recursos remotos de forma no autorizada.
+
+---
+### La Solución: Servir el Archivo a Través de un Servidor Web
+
+Para que tu Web Worker funcione correctamente, necesitas servir tus archivos HTML y JavaScript a través de un **servidor web local**. No te preocupes, esto es más sencillo de lo que parece. Aquí te presento algunas opciones populares y fáciles de usar:
+
+#### Opción 1: Usar Live Server (Recomendado para desarrollo)
+
+Si usas **Visual Studio Code**, la extensión **Live Server** es la forma más sencilla y común de hacerlo:
+
+1.  **Instala la extensión Live Server:** Abre VS Code, ve al panel de extensiones (Ctrl+Shift+X o Cmd+Shift+X), busca "Live Server" de Ritwick Dey e instálala.
+2.  **Abre tu proyecto:** Abre la carpeta `DIPLOMADO_DE_PROGRAMACION_2025-06-23/HTML5_II/HENRY/` en VS Code.
+3.  **Inicia Live Server:** Haz clic derecho en tu archivo `ejemplo07_api_web_worker.html` en el explorador de archivos de VS Code y selecciona **"Open with Live Server"**. O, en la parte inferior derecha de la ventana de VS Code, verás un ícono que dice "Go Live". Haz clic en él.
+
+Esto abrirá tu página en el navegador (generalmente en `http://127.0.0.1:5500/ejemplo07_api_web_worker.html` o similar), y el Web Worker funcionará sin problemas.
+
+#### Opción 2: Usar Python (Si tienes Python instalado)
+
+Si tienes Python instalado, puedes levantar un servidor HTTP simple desde tu terminal:
+
+1.  **Abre tu terminal/línea de comandos.**
+2.  **Navega a la carpeta de tu proyecto:** Usa el comando `cd` para ir a la carpeta donde se encuentran tus archivos HTML y `js/` (por ejemplo, `cd C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\HTML5_II\HENRY`).
+3.  **Ejecuta el servidor:**
+    * Para Python 3: `python -m http.server`
+    * Para Python 2: `python -m SimpleHTTPServer`
+4.  **Accede a tu página:** Abre tu navegador y ve a `http://localhost:8000/ejemplo07_api_web_worker.html`.
+
+#### Opción 3: Usar Node.js (Si tienes Node.js instalado)
+
+Si tienes Node.js, puedes instalar un paquete de servidor HTTP simple:
+
+1.  **Abre tu terminal/línea de comandos.**
+2.  **Navega a la carpeta de tu proyecto.**
+3.  **Instala `http-server` (una sola vez):** `npm install -g http-server`
+4.  **Inicia el servidor:** `http-server`
+5.  **Accede a tu página:** Abre tu navegador y ve a `http://localhost:8080/ejemplo07_api_web_worker.html`.
+
+---
+
+Una vez que sirvas tu página a través de un servidor web local, el navegador asignará un origen como `http://localhost:XXXX` (donde XXXX es el número de puerto), y los Web Workers podrán cargar sus scripts sin la restricción de seguridad.
+
+¡Espero que esto te ayude a resolver el problema!
+
+
+ETIQUETAS MULTIMEDIA 
+
+<video>
+<audio>
+<track>
+<source>
