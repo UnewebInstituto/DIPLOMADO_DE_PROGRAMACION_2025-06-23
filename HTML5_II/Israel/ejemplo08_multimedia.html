@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    video{
+      width: 500px;
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ejemplo08 Multimedia</h1>
+  <!--
+     <video>
+     <audio>
+     <source>
+     <track>
+  -->
+  <h2>Etiqueta videos</h2>
+  <!--
+      Atributos
+      src: Origen o fuente del video.
+  -->
+      <p>Caso de etiqueta vídeo con atributos src y control</p>
+      <video src="../video/3129671-uhd_3840_2160_30fps.mp4" controls></video>
+      <hr>
+      <p>*** Caso de etiqueta vídeo con etiqueta source anidada</p>
+      <video controls id="miVideo">
+        <source src="../video/3129671-uhd_3840_2160_30fps.mp4" type="video/mp4">
+        <source src="../video/3129671-uhd_3840_2160_30fps.ogg" type="video/ogg">
+        <source src="../video/3129671-uhd_3840_2160_30fps.webm" type="video/webm">
+        <track src="./track/pista_es.vtt" kind="subtitles" srclang="es">
+        <track src="./track/pista_en.vtt" kind="subtitles" srclang="en">
+      </video>
+      <hr>
+      <p>Caso de etiqueta video, anidada con etiqueta source y track.</p>
+      <video src="../video/3129671-uhd_3840_2160_30fps.mp4" controls>
+        <track src="./track/pista_es.vtt" kind="subtitles" srclang="es">
+        <track src="./track/pista_en.vtt" kind="subtitles" srclang="en">
+      </video>
+      <hr>
+      <p>Caso de etiqueta audio</p>
+      <audio src="../audio/binary-code-interface-sound-effects-sci-fi-computer-ui-sounds-209403.mp3" controls></audio>
+      <hr>
+      <p>Caso de etiqueta audio con etiqueta source anidada</p>
+      <audio controls id="miAudio">
+        <source src="../audio/binary-code-interface-sound-effects-sci-fi-computer-ui-sounds-209403.mp3" type="audio/mpeg">
+        <source src="../audio/binary-code-interface-sound-effects-sci-fi-computer-ui-sounds-209403.ogg" type="audio/ogg">
+         <source src="../audio/binary-code-interface-sound-effects-sci-fi-computer-ui-sounds-209403.wav" type="audio/wav">
+      </audio>
+      <p>Caso de etiqueta source anidada con etiqueta track (NO GENERA RSULTADO)</p>
+      <audio src="../audio/binary-code-interface-sound-effects-sci-fi-computer-ui-sounds-209403.mp3">
+        <track src="./track/pista_es.vtt" kind="subtitles" srclang="es">
+        <track src="./track/pista_en.vtt" kind="subtitles" srclang="en">
+      </audio>
+      <script src="../js/comun.js"></script>
+</body>
+</html>
