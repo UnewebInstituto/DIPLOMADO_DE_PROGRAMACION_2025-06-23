@@ -12,7 +12,9 @@ git branch -M main
 git remote remove origin
 
 git remote add origin https://github.com/UnewebInstituto/DIPLOMADO_DE_PROGRAMACION_2025-06-23.git
+
 git push -u origin main
+
 …or push an existing repository from the command line
 git remote add origin https://github.com/UnewebInstituto/DIPLOMADO_DE_PROGRAMACION_2025-06-23.git
 git branch -M main

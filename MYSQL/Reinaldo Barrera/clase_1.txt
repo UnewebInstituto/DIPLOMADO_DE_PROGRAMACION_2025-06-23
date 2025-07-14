@@ -1,0 +1,11 @@
+XAMPP
+https://www.apachefriends.org/es/index.html
+
+APPSERV
+https://www.appserv.org/en/
+
+WAMPSERVER
+https://www.wampserver.com/en/
+
+tipo de datos
+https://mariadb.com/docs/server/reference/data-types

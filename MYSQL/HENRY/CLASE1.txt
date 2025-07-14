@@ -1,0 +1,65 @@
+miguelcastillobarrera2024@gmail.com
+
+XAMPP
+https://www.apachefriends.org/es/index.html
+
+APPSERV
+https://www.appserv.org/en/
+
+WAMP
+https://www.wampserver.com/en/
+
+https://mariadb.com/docs/server/server-usage/storage-engines/connect/connect-data-types
+
+
+En MySQL, los tipos de datos se pueden agrupar en categorías como numéricos, de fecha y hora, cadenas (carácter y byte), espaciales y JSON. Dentro de cada categoría, existen subtipos específicos para representar diferentes tipos de datos, como enteros, decimales, fechas, cadenas de texto, etc. 
+Tipos de Datos Numéricos:
+Enteros:
+TINYINT: Entero pequeño. 
+SMALLINT: Entero pequeño. 
+MEDIUMINT: Entero de tamaño medio. 
+INT o INTEGER: Entero estándar. 
+BIGINT: Entero grande. 
+Decimales:
+DECIMAL(M, D): Número decimal con precisión definida (M dígitos totales, D decimales). 
+NUMERIC(M, D): Similar a DECIMAL. 
+FLOAT(M, D): Número de coma flotante de precisión simple. 
+DOUBLE(M, D): Número de coma flotante de doble precisión. 
+Otros:
+BIT(M): Un valor de bit con un número específico de bits (M). 
+Tipos de Datos de Fecha y Hora:
+DATE: Almacena fechas en formato AAAA-MM-DD. 
+DATETIME: Almacena fechas y horas en formato AAAA-MM-DD HH:MM:SS. 
+TIMESTAMP: Almacena marcas de tiempo en segundos desde la época de Unix (1970-01-01 00:00:00 UTC). 
+TIME: Almacena horas en formato HH:MM:SS. 
+YEAR(M): Almacena años, con opción de especificar la longitud (2 o 4 dígitos). 
+Tipos de Datos de Cadena (Texto):
+CHAR(M): Cadena de longitud fija (M caracteres).
+VARCHAR(M): Cadena de longitud variable (hasta M caracteres).
+TINYTEXT: Cadena de texto corta (hasta 255 caracteres).
+TEXT: Cadena de texto (hasta 65,535 caracteres).
+MEDIUMTEXT: Cadena de texto de longitud media (hasta 16,777,215 caracteres).
+LONGTEXT: Cadena de texto larga (hasta 4,294,967,295 caracteres).
+BINARY(M): Cadena de bytes de longitud fija.
+VARBINARY(M): Cadena de bytes de longitud variable. 
+Tipos de Datos Espaciales:
+GEOMETRY: Almacena datos espaciales en diferentes formatos.
+POINT: Almacena un punto en el espacio.
+LINESTRING: Almacena una línea.
+POLYGON: Almacena un polígono.
+MULTIPOINT: Almacena una colección de puntos.
+MULTILINESTRING: Almacena una colección de líneas.
+MULTIPOLYGON: Almacena una colección de polígonos.
+GEOMETRYCOLLECTION: Almacena una colección de diferentes tipos de geometrías. 
+Tipos de Datos JSON:
+JSON: Almacena datos en formato JSON. 
+Tipos de Datos Adicionales:
+ENUM: Almacena un valor único de una lista predefinida de valores. 
+SET: Almacena cero, uno o varios valores de una lista predefinida de valores. 
+Al elegir un tipo de dato, es importante considerar el tipo de información que se va a almacenar, el rango de valores posibles y la precisión requerida. La elección correcta del tipo de dato puede ayudar a optimizar el rendimiento de la base de datos y ahorrar espacio de almacenamiento. 
+
+MariaDB [bd_alejandro_20250714]> quit
+Bye
+
+Profesor@DESKTOP-ORPPTTD c:\xampp
+# exit
