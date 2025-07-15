@@ -1,0 +1,5 @@
+MOTORES DE ALMACENAMIENTO
+https://mariadb.com/docs/server/server-usage/storage-engines
+
+INNODB
+https://mariadb.com/docs/server/server-usage/storage-engines/innodb

@@ -1,0 +1,30 @@
+https://mariadb.com/docs/server/server-usage/storage-engines
+
+https://mariadb.com/docs/server/server-usage/storage-engines/innodb
+
+
+En el contexto de las **bases de datos**, **ACID** es un acrónimo que representa un conjunto de cuatro propiedades clave que garantizan que las transacciones de una base de datos se procesen de manera confiable. Estas propiedades son fundamentales para mantener la integridad y la consistencia de los datos, especialmente en sistemas donde la precisión es crítica, como en aplicaciones bancarias o de reservas.
+
+---
+
+### Las cuatro propiedades de ACID son:
+
+* **Atomicidad (Atomicity):** Esta propiedad asegura que una transacción se trata como una **unidad indivisible**. Esto significa que todos los pasos de una transacción deben completarse con éxito o, si algo falla en algún punto, la transacción completa se deshace, como si nunca hubiera ocurrido. No hay estados intermedios.
+    * **Ejemplo:** En una transferencia de dinero de la cuenta A a la cuenta B, la atomicidad garantiza que el dinero se resta de A *y* se suma a B. Si ocurre un error (por ejemplo, el sistema falla al intentar sumar el dinero a B), la transacción completa se revierte y el dinero vuelve a la cuenta A.
+
+* **Consistencia (Consistency):** La consistencia garantiza que una transacción lleva la base de datos de un **estado válido a otro válido**. Esto significa que cualquier dato escrito en la base de datos debe cumplir con todas las reglas y restricciones predefinidas (como tipos de datos, claves únicas, o reglas de negocio). Si una transacción intenta violar estas reglas, se rechaza.
+    * **Ejemplo:** Si una base de datos tiene una regla que dice que el saldo de una cuenta bancaria nunca puede ser negativo, una transacción que intente dejar una cuenta en números rojos será rechazada para mantener la consistencia.
+
+* **Aislamiento (Isolation):** El aislamiento garantiza que las **transacciones concurrentes no interfieran entre sí**. Para los usuarios, parece que cada transacción se ejecuta de forma independiente y secuencial, incluso si en realidad están ocurriendo varias al mismo tiempo. Esto evita que una transacción vea datos incompletos o incorrectos de otra transacción que aún no ha finalizado.
+    * **Ejemplo:** Si dos personas intentan reservar el último asiento disponible en un vuelo al mismo tiempo, el aislamiento asegura que solo una de las transacciones se completará exitosamente, y la otra será informada de que el asiento ya no está disponible, evitando una doble reserva.
+
+* **Durabilidad (Durability):** La durabilidad asegura que, una vez que una transacción ha sido **confirmada (commit)**, los cambios realizados en la base de datos son **permanentes y persistentes**, incluso en caso de fallos del sistema, cortes de energía o caídas del software. Los datos se almacenan de forma segura (normalmente en almacenamiento no volátil) y pueden recuperarse.
+    * **Ejemplo:** Después de que se registra un pago en un sistema de comercio electrónico, la durabilidad garantiza que ese registro no se perderá, incluso si el servidor se apaga inmediatamente después de la confirmación del pago.
+
+---
+
+### ¿Por qué son importantes las propiedades ACID?
+
+Las propiedades ACID son vitales para la **confiabilidad y la integridad de los datos**. Son la base de muchas bases de datos relacionales tradicionales (como MySQL, PostgreSQL, Oracle SQL Server) y garantizan que las operaciones críticas se realicen de manera segura y predecible, evitando errores y corrupción de datos.
+
+Aunque las bases de datos relacionales suelen ser compatibles con ACID, algunos sistemas NoSQL (bases de datos no relacionales) pueden optar por un enfoque diferente (como el modelo **BASE**, que prioriza la disponibilidad y la tolerancia a particiones sobre la consistencia estricta en todo momento) para lograr mayor escalabilidad y rendimiento en ciertos escenarios. Sin embargo, en aplicaciones donde la precisión y la consistencia de los datos son primordiales, ACID sigue siendo un pilar fundamental.

@@ -170,8 +170,8 @@ alter table personas change column nro nro varchar(8);
 -- POR OMISIÓN TODOS LOS CAMPOS SE AÑADEN AL FINAL
 alter table personas add column sexo char(1);
 
---MariaDB [bd_henry_20250714]> alter table personas add column sexo char(1);
 --Query OK, 0 rows affected (0.005 sec)
+--MariaDB [bd_henry_20250714]> alter table personas add column sexo char(1);
 --Records: 0  Duplicates: 0  Warnings: 0
 
 --MariaDB [bd_henry_20250714]> describe personas;
