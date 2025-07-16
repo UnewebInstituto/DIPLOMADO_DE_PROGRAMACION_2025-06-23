@@ -1,0 +1,455 @@
+-----
+
+## Respaldo de Bases de Datos MariaDB
+
+Como experto en bases de datos MariaDB, te guiaré a través del proceso de respaldo. Realizar copias de seguridad de tus bases de datos es crucial para la recuperación ante desastres, la migración de datos o simplemente para mantener un historial de tus sistemas. Aquí te presento las formas más comunes y efectivas de hacerlo.
+
+### Métodos de Respaldo
+
+Existen dos métodos principales para respaldar una base de datos MariaDB:
+
+1.  **`mysqldump`**: Esta es la herramienta más utilizada para respaldar bases de datos MariaDB y MySQL. Crea un archivo de texto con todas las sentencias SQL necesarias para recrear las bases de datos (tablas, datos, vistas, procedimientos almacenados, etc.). Es ideal para respaldos lógicos.
+2.  **`mariabackup` (o `XtraBackup` para Percona Server)**: Esta herramienta de código abierto realiza respaldos físicos a nivel de archivo. Es mucho más rápida para bases de datos grandes y permite respaldos incrementales, lo cual es muy útil para sistemas con mucho volumen de cambios.
+
+A continuación, te detallo cómo utilizar cada uno:
+
+### Uso de `mysqldump`
+
+La sintaxis básica de `mysqldump` es bastante sencilla. Puedes respaldar una o varias bases de datos, o incluso todas ellas.
+
+#### Respaldo de una Sola Base de Datos
+
+Para respaldar una base de datos específica, utiliza el siguiente comando:
+
+```bash
+mysqldump -u [usuario] -p [nombre_base_de_datos] > [ruta_del_archivo_de_respaldo].sql
+```
+
+  * `[usuario]`: Tu nombre de usuario de MariaDB (ej., `root`).
+  * `[nombre_base_de_datos]`: El nombre de la base de datos que deseas respaldar.
+  * `[ruta_del_archivo_de_respaldo].sql`: La ruta completa donde guardarás el archivo SQL de respaldo (ej., `/home/respaldos/mi_db_backup.sql`).
+
+**Ejemplo:**
+
+```bash
+mysqldump -u root -p mi_base_de_datos > /var/backups/mariadb/mi_base_de_datos_$(date +%Y%m%d%H%M%S).sql
+```
+
+Este comando te pedirá la contraseña del usuario `root`. El `$(date +%Y%m%d%H%M%S)` automáticamente añadirá una marca de tiempo al nombre del archivo, lo que es muy útil para mantener múltiples versiones de respaldo.
+
+#### Respaldo de Varias Bases de Datos
+
+Si necesitas respaldar varias bases de datos específicas:
+
+```bash
+mysqldump -u [usuario] -p --databases [db1] [db2] [db3] > [ruta_del_archivo_de_respaldo].sql
+```
+
+**Ejemplo:**
+
+```bash
+mysqldump -u root -p --databases db_clientes db_productos > /var/backups/mariadb/multi_db_backup.sql
+```
+
+#### Respaldo de Todas las Bases de Datos
+
+Para respaldar todas las bases de datos en tu servidor MariaDB:
+
+```bash
+mysqldump -u [usuario] -p --all-databases > [ruta_del_archivo_de_respaldo].sql
+```
+
+**Ejemplo:**
+
+```bash
+mysqldump -u root -p --all-databases > /var/backups/mariadb/all_databases_backup.sql
+```
+
+#### Opciones Adicionales Útiles para `mysqldump`
+
+  * **`--single-transaction`**: Recomendado para tablas **InnoDB**. Crea un snapshot consistente de la base de datos sin bloquearla para escrituras.
+    ```bash
+    mysqldump -u root -p --single-transaction mi_base_de_datos > backup.sql
+    ```
+  * **`--master-data=2`**: Incluye las coordenadas del log binario (master log position) en el respaldo, útil para replicación.
+    ```bash
+    mysqldump -u root -p --master-data=2 mi_base_de_datos > backup.sql
+    ```
+  * **`--compress`**: Comprime el resultado antes de enviarlo a la salida estándar, útil para conexiones remotas.
+    ```bash
+    mysqldump -u root -p --compress mi_base_de_datos > backup.sql
+    ```
+  * **Comprimir el respaldo directamente con `gzip`**: Una práctica común para ahorrar espacio.
+    ```bash
+    mysqldump -u root -p mi_base_de_datos | gzip > [ruta_del_archivo_de_respaldo].sql.gz
+    ```
+
+### Uso de `mariabackup`
+
+`mariabackup` (parte del paquete MariaDB-Backup) es la herramienta de respaldo físico oficial de MariaDB para motores de almacenamiento InnoDB/XtraDB. Es mucho más eficiente para bases de datos grandes, ya que copia directamente los archivos de datos.
+
+#### Respaldo Completo con `mariabackup`
+
+Primero, asegúrate de tener `mariabackup` instalado. En sistemas Debian/Ubuntu, puedes instalarlo con `sudo apt install mariadb-backup`.
+
+Para realizar un respaldo completo:
+
+```bash
+mariabackup --backup --target-dir=[directorio_destino]
+```
+
+  * `--backup`: Indica que se realizará una operación de respaldo.
+  * `--target-dir=[directorio_destino]`: La ruta del directorio donde se guardarán los archivos de respaldo. Este directorio debe existir y estar vacío.
+
+**Ejemplo:**
+
+```bash
+mariabackup --user=root --password=your_password --backup --target-dir=/var/backups/mariadb/full_backup_$(date +%Y%m%d%H%M%S)
+```
+
+Después de realizar el respaldo, necesitas **prepararlo** para que sea consistente y pueda ser restaurado. Esto se hace con la opción `--prepare`:
+
+```bash
+mariabackup --prepare --target-dir=[directorio_destino]
+```
+
+**Ejemplo:**
+
+```bash
+mariabackup --prepare --target-dir=/var/backups/mariadb/full_backup_20250716082000
+```
+
+#### Respaldo Incremental con `mariabackup`
+
+Los respaldos incrementales solo copian los cambios desde el último respaldo completo o incremental, ahorrando mucho tiempo y espacio.
+
+1.  **Realiza un respaldo completo (base):**
+
+    ```bash
+    mariabackup --user=root --password=your_password --backup --target-dir=/var/backups/mariadb/base_backup
+    ```
+
+    Y luego **prepáralo**:
+
+    ```bash
+    mariabackup --prepare --target-dir=/var/backups/mariadb/base_backup
+    ```
+
+2.  **Realiza un respaldo incremental:**
+
+    ```bash
+    mariabackup --user=root --password=your_password --backup --target-dir=/var/backups/mariadb/incremental_backup_1 --incremental-basedir=/var/backups/mariadb/base_backup
+    ```
+
+      * `--incremental-basedir`: Apunta al directorio del último respaldo completo o incremental del cual quieres partir.
+
+3.  **Prepara los respaldos (primero la base, luego los incrementales en orden):**
+
+    ```bash
+    mariabackup --prepare --target-dir=/var/backups/mariadb/base_backup
+    mariabackup --prepare --target-dir=/var/backups/mariadb/base_backup --incremental-dir=/var/backups/mariadb/incremental_backup_1
+    ```
+
+    Repite el último comando para cada respaldo incremental, apuntando al directorio del respaldo base y el incremental que estás aplicando.
+
+### Consideraciones Clave para un Respaldo Efectivo
+
+  * **Automatización:** Es fundamental automatizar tus respaldos utilizando **cron jobs** en sistemas Linux/Unix. Esto asegura que los respaldos se realicen regularmente sin intervención manual.
+  * **Almacenamiento Seguro:** Guarda tus respaldos en una ubicación segura y **fuera del servidor de base de datos** (ej., almacenamiento en red, servicios en la nube, discos externos). Esto protege tus datos en caso de fallo del servidor principal.
+  * **Monitoreo:** Verifica regularmente que tus respaldos se estén realizando correctamente y que los archivos generados no estén corruptos.
+  * **Pruebas de Restauración:** La parte más crítica de cualquier estrategia de respaldo es la capacidad de restaurar. **Regularmente, prueba restaurar tus respaldos** en un entorno de pruebas para asegurarte de que son válidos y que el proceso de restauración funciona como esperas.
+  * **Frecuencia:** Define una frecuencia de respaldo que se ajuste a la criticidad de tus datos y la cantidad de cambios que experimenta tu base de datos (diaria, horaria, etc.).
+  * **Retención:** Establece una política de retención para tus respaldos (cuántas copias guardar y por cuánto tiempo).
+
+Elegir entre `mysqldump` y `mariabackup` dependerá del tamaño de tu base de datos, los requisitos de tiempo de inactividad y la complejidad de tu estrategia de respaldo. Para bases de datos pequeñas y medianas, `mysqldump` suele ser suficiente. Para bases de datos grandes y críticas, `mariabackup` es la opción superior.
+
+¿Te gustaría que profundicemos en algún método en particular o en la automatización de estos procesos?
+
+
+
+Microsoft Windows [Versión 10.0.19045.4170]      
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23>cd mysql
+
+C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\MYSQL>cd henry
+
+C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\MYSQL\HENRY>dir
+ El volumen de la unidad C no tiene etiqueta.    
+ El número de serie del volumen es: 0022-50E4    
+
+ Directorio de C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\MYSQL\HENRY
+
+16/07/2025  08:24    <DIR>          .
+16/07/2025  08:24    <DIR>          ..
+16/07/2025  08:25                83 backup.bat   
+16/07/2025  08:24    <DIR>          backups      
+14/07/2025  09:20    <DIR>          CLASE1       
+14/07/2025  11:10            17,336 CLASE1.sql   
+14/07/2025  11:15             3,035 CLASE1.txt   
+15/07/2025  08:29    <DIR>          CLASE2       
+15/07/2025  11:20            23,411 CLASE2.sql   
+15/07/2025  10:34             4,100 CLASE2.txt   
+16/07/2025  08:14    <DIR>          CLASE3       
+16/07/2025  08:14                 0 CLASE3.sql   
+16/07/2025  08:21             8,124 CLASE3.txt   
+               7 archivos         56,089 bytes   
+               6 dirs  603,007,410,176 bytes libres
+
+C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\MYSQL\HENRY>
+
+
+Setting environment for using XAMPP for Windows.
+Profesor@DESKTOP-ORPPTTD c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use bd_henry_20250714
+Database changed
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| proveedores                 |
++-----------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> create database bd_henry_20250714_copia;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [bd_henry_20250714]> show databases like '%20250714%';
++-----------------------------+
+| Database (%20250714%)       |
++-----------------------------+
+| bd_alejandro_20250714       |
+| bd_alejandro_20250714_copia |
+| bd_henry_20250714           |
+| bd_henry_20250714_copia     |
+| bd_reinaldo_20250714        |
+| bd_reinaldo_20250714_copia  |
++-----------------------------+
+6 rows in set (0.002 sec)
+
+MariaDB [bd_henry_20250714]>
+
+
+Dado que asumimos el rol de experto en bases de datos MariaDB, y hemos cubierto cómo realizar respaldos con `mysqldump` y `mariabackup`, ahora te guiaré a través de los comandos para efectuar la **recuperación (restauración)** utilizando ambas herramientas.
+
+Es crucial entender que la restauración es tan importante como el respaldo, y debe ser practicada en un entorno de pruebas para asegurar su éxito en una situación real.
+
+### Restauración con `mysql` (para respaldos de `mysqldump`)
+
+Los respaldos creados con `mysqldump` son archivos SQL que contienen las sentencias para recrear tu base de datos. La herramienta que se usa para restaurarlos es el cliente de línea de comandos de MariaDB, `mysql`.
+
+#### Restaurar una Sola Base de Datos
+
+Para restaurar un archivo SQL en una base de datos existente o en una nueva (si el archivo de respaldo incluye `CREATE DATABASE`):
+
+```bash
+mysql -u [usuario] -p [nombre_base_de_datos] < [ruta_del_archivo_de_respaldo].sql
+```
+
+  * `[usuario]`: Tu nombre de usuario de MariaDB (ej., `root`).
+  * `[nombre_base_de_datos]`: La base de datos donde se restaurarán los datos. Si la base de datos no existe, `mysqldump` no la creará por defecto a menos que uses la opción `--all-databases` o `--databases` durante el respaldo. En ese caso, deberías crearla manualmente primero: `CREATE DATABASE [nombre_base_de_datos];`
+  * `[ruta_del_archivo_de_respaldo].sql`: La ruta completa al archivo SQL que quieres restaurar.
+
+**Ejemplo:**
+
+```bash
+# Primero, asegúrate de que la base de datos exista (si no lo hace)
+# mysql -u root -p -e "CREATE DATABASE mi_base_de_datos;"
+
+# Luego, restaura los datos
+mysql -u root -p mi_base_de_datos < /var/backups/mariadb/mi_base_de_datos_20250715103000.sql
+```
+
+#### Restaurar un Respaldo de Todas las Bases de Datos (`--all-databases`)
+
+Si tu respaldo fue generado con la opción `--all-databases` de `mysqldump`, no necesitas especificar una base de datos. El archivo SQL contendrá las sentencias para crear y llenar todas las bases de datos.
+
+```bash
+mysql -u [usuario] -p < [ruta_del_archivo_de_respaldo].sql
+```
+
+**Ejemplo:**
+
+```bash
+mysql -u root -p < /var/backups/mariadb/all_databases_backup_20250715.sql
+```
+
+#### Restaurar un Respaldo Comprimido (`.gz`)
+
+Si comprimiste tu respaldo con `gzip`:
+
+```bash
+gunzip < [ruta_del_archivo_de_respaldo].sql.gz | mysql -u [usuario] -p [nombre_base_de_datos]
+```
+
+**Ejemplo:**
+
+```bash
+gunzip < /var/backups/mariadb/mi_base_de_datos_20250715103000.sql.gz | mysql -u root -p mi_base_de_datos
+```
+
+**Consideraciones para la Restauración con `mysql`:**
+
+  * **Rendimiento:** Para bases de datos muy grandes, la restauración con `mysql` puede ser lenta ya que se ejecutan todas las sentencias SQL una por una.
+  * **Bloqueo:** La restauración puede bloquear tablas o incluso toda la base de datos, dependiendo de las tablas y el motor de almacenamiento, lo que puede afectar la disponibilidad de tu aplicación.
+  * **Errores:** Si hay errores en el archivo SQL o problemas de consistencia, la restauración podría fallar.
+
+### Restauración con `mariabackup`
+
+La restauración con `mariabackup` implica copiar los archivos de datos preparados de vuelta al directorio de datos de MariaDB y luego asegurarse de que MariaDB tenga los permisos correctos.
+
+**¡ADVERTENCIA\!** Antes de restaurar con `mariabackup`, asegúrate de que el servicio de MariaDB esté **detenido**. Si MariaDB está en ejecución y copias archivos directamente a su directorio de datos, esto puede llevar a la corrupción de datos.
+
+#### 1\. Detener el Servicio MariaDB
+
+```bash
+sudo systemctl stop mariadb
+# O en sistemas más antiguos:
+# sudo service mysql stop
+```
+
+#### 2\. Eliminar o Mover los Datos Antiguos (Opcional, pero recomendado en una restauración completa)
+
+Es una buena práctica asegurarse de que el directorio de datos de MariaDB esté vacío o contenga solo los archivos del sistema, para evitar conflictos con los datos restaurados.
+
+**¡PRECAUCIÓN\!** Asegúrate de tener copias de seguridad de cualquier dato que no quieras perder.
+
+```bash
+sudo rm -rf /var/lib/mysql/*
+# O puedes moverlos a una ubicación de respaldo temporal:
+# sudo mv /var/lib/mysql /var/lib/mysql_old_$(date +%Y%m%d%H%M%S)
+# sudo mkdir /var/lib/mysql
+```
+
+El directorio de datos por defecto de MariaDB suele ser `/var/lib/mysql` o `/usr/local/mysql/data`. Puedes confirmarlo en tu archivo de configuración `my.cnf` bajo la sección `[mysqld]` con la variable `datadir`.
+
+#### 3\. Restaurar los Datos Preparados
+
+Una vez que el servicio está detenido y el directorio de datos listo, usa `mariabackup` para copiar los datos preparados:
+
+```bash
+mariabackup --copy-back --target-dir=[directorio_del_respaldo_preparado]
+```
+
+  * `--copy-back`: Indica que se copiarán los archivos de respaldo al directorio de datos de MariaDB.
+  * `[directorio_del_respaldo_preparado]`: La ruta al directorio donde se encuentra tu respaldo de `mariabackup` **que ya ha sido preparado** con `--prepare`.
+
+**Ejemplo:**
+
+```bash
+mariabackup --copy-back --target-dir=/var/backups/mariadb/full_backup_20250716082000
+```
+
+#### 4\. Ajustar Permisos
+
+Después de copiar los archivos, es fundamental asegurarse de que los permisos de los archivos y directorios restaurados pertenezcan al usuario y grupo `mysql` (o el usuario bajo el cual se ejecuta el servicio MariaDB).
+
+```bash
+sudo chown -R mysql:mysql /var/lib/mysql
+```
+
+#### 5\. Iniciar el Servicio MariaDB
+
+Finalmente, puedes iniciar el servicio de MariaDB.
+
+```bash
+sudo systemctl start mariadb
+# O en sistemas más antiguos:
+# sudo service mysql start
+```
+
+#### Restauración de Respaldo Incremental con `mariabackup`
+
+Si tienes un respaldo incremental, el proceso es un poco diferente:
+
+1.  **Asegúrate de que la base de datos esté parada y el directorio de datos vacío.**
+2.  **Restaura el respaldo completo (base):**
+    ```bash
+    mariabackup --copy-back --target-dir=/var/backups/mariadb/base_backup
+    ```
+3.  **Aplica los respaldos incrementales en orden al directorio de datos:**
+    ```bash
+    mariabackup --copy-back --target-dir=/var/lib/mysql --incremental-dir=/var/backups/mariadb/incremental_backup_1
+    # Repite para cada incremental:
+    # mariabackup --copy-back --target-dir=/var/lib/mysql --incremental-dir=/var/backups/mariadb/incremental_backup_2
+    ```
+    **¡Importante\!** Cuando aplicas incrementales, el `--target-dir` es ahora el directorio de datos de MariaDB (`/var/lib/mysql`), no el directorio del respaldo incremental.
+4.  **Ajusta los permisos.**
+5.  **Inicia el servicio MariaDB.**
+
+**Consideraciones para la Restauración con `mariabackup`:**
+
+  * **Velocidad:** `mariabackup` es significativamente más rápido para restaurar bases de datos grandes en comparación con `mysqldump`, ya que solo copia archivos binarios.
+  * **Integridad:** Proporciona un punto de recuperación consistente al aplicar la fase `--prepare`.
+  * **Tiempo de inactividad:** Aunque es más rápido, aún requiere detener el servicio de MariaDB durante la copia y la aplicación de los archivos, lo que implica tiempo de inactividad.
+
+### Pruebas de Restauración: La Clave del Éxito
+
+No puedo enfatizar esto lo suficiente: **si no has probado tus restauraciones, tu respaldo no vale nada.**
+
+  * Crea un entorno de pruebas aislado (una VM, un contenedor Docker, otro servidor).
+  * Realiza una restauración completa de uno de tus respaldos en ese entorno.
+  * Verifica la integridad de los datos, la disponibilidad de las tablas, etc.
+  * Simula diferentes escenarios de falla para asegurarte de que tu plan de recuperación sea robusto.
+
+Con estos comandos y consideraciones, tendrás una base sólida para realizar tanto respaldos como recuperaciones efectivas de tus bases de datos MariaDB.
+
+MariaDB [bd_henry_20250714]> insert into proveedores(nombre, direccion, correo_electronico, telefono, persona_contacto)
+    -> values
+    -> ('GENERAL ELECTRIC','AV. LECUNA', 'info@ge.com', '0212-5431234','ANA VASQUEZ'),
+    -> ('WHIRPOOL','AV. ROMULO GALLEGOS','info@whirpool.com','0212-9871234','YOLANDA TORTOZA'),
+    -> ('ELECTROLUX','AV. PPAL. DE LAS MERCEDES','info@electrolux.com','0212-2671234','NELLY CONTRERAS'),
+    -> ('LG','AV. SAN MARTIN','info@lg.com','0212-4431234','MAIBA ROMERO');
+Query OK, 4 rows affected (0.005 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [bd_henry_20250714]> select * from proveedores;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]>
+
+MariaDB [bd_henry_20250714]> insert into productos(proveedor_id, nombre, precio, existencia)
+    -> values
+    -> (1,'NEVERA',500.25,6),
+    -> (1,'CONGELADOR',250.75,3),
+    -> (1,'LAVADORA 10KG',300,8),
+    -> (1,'COCINA A GAS',120,10),
+    -> (2,'CONGELADOR',275,5),
+    -> (2,'HORNO ELECTRICO',450,3),
+    -> (2,'LAVADORA 10KG',295,12),
+    -> (2,'COCINA ELECTRICA',350,2),
+    -> (3,'NEVERA',450,3),
+    -> (3,'LAVADORA',380,6),
+    -> (3,'COCINA A GAS',230,12),
+    -> (3,'COCINA ELECTRICA',390,8),
+    -> (4,'NEVERA',590.75,3),
+    -> (4,'CONGELADOR',249.99,6),
+    -> (4,'LAVADORA 10KG',310,3),
+    -> (4,'COCINA A GAS',170,8);
+Query OK, 16 rows affected (0.007 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+
+https://www.w3schools.com/sql/sql_join_inner.asp
