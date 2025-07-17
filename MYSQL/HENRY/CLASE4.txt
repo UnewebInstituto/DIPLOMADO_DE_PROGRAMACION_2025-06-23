@@ -1,0 +1,1411 @@
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prov_prod_01          |
++-----------------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_01;
++------------------+-----------------+--------------+------------------+--------+
+| proveedor        | contacto        | telefono     | producto         | precio |
++------------------+-----------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |
+| DAMASCO          | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |
++------------------+-----------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+
+MariaDB [bd_henry_20250714]> help functions
+You asked for help about help category: "Functions"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Bit Functions
+   Comparison Operators
+   Control Flow Functions
+   Date and Time Functions
+   Dynamic Column Functions
+   Encryption Functions
+   Information Functions
+   JSON Functions
+   Logical Operators
+   Miscellaneous Functions
+   Numeric Functions
+   Spider Functions
+   String Functions
+   Window Functions
+
+MariaDB [bd_henry_20250714]>
+
+MariaDB [bd_henry_20250714]> help Numeric Functions
+You asked for help about help category: "Numeric Functions"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   ABS
+   ACOS
+   ASIN
+   ATAN
+   ATAN2
+   Addition Operator (+)
+   CEIL
+   CEILING
+   CONV
+   COS
+   COT
+   CRC32
+   DEGREES
+   DIV
+   Division Operator (/)
+   EXP
+   FLOOR
+   LN
+   LOG
+   LOG10
+   LOG2
+   MOD
+   Modulo Operator (%)
+   Multiplication Operator (*)
+   OCT
+   PI
+   POW
+   POWER
+   RADIANS
+   RAND
+   ROUND
+   SIGN
+   SIN
+   SQRT
+   Subtraction Operator (-)
+   TAN
+   TRUNCATE
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> select pow(2,10);
++-----------+
+| pow(2,10) |
++-----------+
+|      1024 |
++-----------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select sqrt(9);
++---------+
+| sqrt(9) |
++---------+
+|       3 |
++---------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select md5('uneweb');
++----------------------------------+
+| md5('uneweb')                    |
++----------------------------------+
+| be08e99bfa6bbdb74329d8d5b4d4396c |
++----------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select md5('caracas');
++----------------------------------+
+| md5('caracas')                   |
++----------------------------------+
+| 9862677269c0bc2fb303929ffafa3ed3 |
++----------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> help Encryption Functions
+You asked for help about help category: "Encryption Functions"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   AES_DECRYPT
+   AES_ENCRYPT
+   COMPRESS
+   DECODE
+   DES_DECRYPT
+   DES_ENCRYPT
+   ENCODE
+   ENCRYPT
+   MD5
+   OLD_PASSWORD
+   PASSWORD
+   SHA1
+   SHA2
+   UNCOMPRESS
+   UNCOMPRESSED_LENGTH
+
+MariaDB [bd_henry_20250714]> help ENCODE
+Name: 'ENCODE'
+Description:
+Syntax
+------
+ENCODE(str,pass_str)
+
+Description
+-----------
+ENCODE is not considered cryptographically secure, and
+should not be used for password encryption.
+
+Encrypt str using pass_str as the password. To decrypt the
+result, use
+DECODE().
+
+The result is a binary string of the same length as str.
+
+The strength of the encryption is based on how good the
+random generator is.
+
+It is not recommended to rely on the encryption performed by
+the ENCODE function. Using a salt value (changed when a
+password is updated) will improve matters somewhat, but for
+storing passwords, consider a more cryptographically secure
+function, such as SHA2().
+
+Examples
+--------
+ENCODE('not so secret text',
+CONCAT('random_salt','password'))
+
+
+
+
+
+
+
+
+
+
+URL: https://mariadb.com/kb/en/encode/
+MariaDB [bd_henry_20250714]> select encode('no es un texto seguro', concat('random_salt','password'));
++-------------------------------------------------------------------+
+| encode('no es un texto seguro', concat('random_salt','password')) |
++-------------------------------------------------------------------+
+| }óÐ∟h »æÄ+N▀QÔÞqÉÌÿk±                                                        |
++-------------------------------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+
+
+Setting environment for using XAMPP for Windows.
+Profesor@DESKTOP-ORPPTTD c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MariaDB [(none)]> use bd_henry_20250714;
+Database changed
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
++-----------------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from proveedores;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
+|  5 | DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | 0212-2431234 | RORAIMA ROJAS    |
+|  6 | HAIR             | AV. PPAL. DEL VALLE       | info@hair.com       | 0212-6431234 | SOFIA CHAN       |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+6 rows in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]> select nombre, correo_electronico from proveedores;
++------------------+---------------------+
+| nombre           | correo_electronico  |
++------------------+---------------------+
+| GENERAL ELECTRIC | info@ge.com         |
+| WHIRPOOL         | info@whirpool.com   |
+| ELECTROLUX       | info@electrolux.com |
+| LG               | info@lg.com         |
+| DAMASCO          | info@damasco.com    |
+| HAIR             | info@hair.com       |
++------------------+---------------------+
+6 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+------------------+--------------+------------------+--------+
+| nombre           | persona_contacto | telefono     | nombre           | precio |
++------------------+------------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS    | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN       | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | COCINA A GAS     | 230.00 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| NULL             | NULL             | NULL         | COCINA ELECTRICA | 390.00 |
+| NULL             | NULL             | NULL         | COCINA A GAS     | 170.00 |
++------------------+------------------+--------------+------------------+--------+
+16 rows in set (0.002 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+------------------+--------------+------------------+--------+
+| nombre           | persona_contacto | telefono     | nombre           | precio |
++------------------+------------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS    | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN       | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | COCINA A GAS     | 230.00 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| NULL             | NULL             | NULL         | COCINA ELECTRICA | 390.00 |
+| NULL             | NULL             | NULL         | COCINA A GAS     | 170.00 |
++------------------+------------------+--------------+------------------+--------+
+16 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> insert into proveedores(nombre, direccion, correo_electronico, telefono, persona_contacto)
+    -> values
+    -> ('SONY','AV. FCO. DE MIRANDA', 'info@sony.com', '0212-2431234','SUSANA MIR');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+------------------+--------------+------------------+--------+
+| nombre           | persona_contacto | telefono     | nombre           | precio |
++------------------+------------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS    | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN       | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | COCINA A GAS     | 230.00 |
+| SONY             | SUSANA MIR       | 0212-2431234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| NULL             | NULL             | NULL         | COCINA A GAS     | 170.00 |
++------------------+------------------+--------------+------------------+--------+
+16 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT * FROM PROVEEDORES;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
+|  5 | DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | 0212-2431234 | RORAIMA ROJAS    |
+|  6 | HAIR             | AV. PPAL. DEL VALLE       | info@hair.com       | 0212-6431234 | SOFIA CHAN       |
+|  7 | SONY             | AV. FCO. DE MIRANDA       | info@sony.com       | 0212-2431234 | SUSANA MIR       |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT * FROM PRODUCTOS;
++----+--------------+------------------+--------+------------+
+| id | proveedor_id | nombre           | precio | existencia |
++----+--------------+------------------+--------+------------+
+|  1 |            1 | NEVERA           | 500.25 |          6 |
+|  2 |            1 | CONGELADOR       | 250.75 |          3 |
+|  3 |            1 | LAVADORA 10KG    | 300.00 |          8 |
+|  4 |            1 | COCINA A GAS     | 120.00 |         10 |
+|  5 |            2 | CONGELADOR       | 275.00 |          5 |
+|  6 |            2 | HORNO ELECTRICO  | 450.00 |          3 |
+|  7 |            2 | LAVADORA 10KG    | 295.00 |         12 |
+|  8 |            2 | COCINA ELECTRICA | 350.00 |          2 |
+|  9 |            3 | NEVERA           | 450.00 |          3 |
+| 10 |            3 | LAVADORA         | 380.00 |          6 |
+| 11 |            3 | COCINA A GAS     | 230.00 |         12 |
+| 12 |            3 | COCINA ELECTRICA | 390.00 |          8 |
+| 13 |            4 | NEVERA           | 590.75 |          3 |
+| 14 |            4 | CONGELADOR       | 249.99 |          6 |
+| 15 |            4 | LAVADORA 10KG    | 310.00 |          3 |
+| 16 |            4 | COCINA A GAS     | 170.00 |          8 |
+| 18 |            5 | NEVERA           | 400.25 |          9 |
++----+--------------+------------------+--------+------------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT * FROM PRODUCTOS_SIN_FK;
++----+--------------+------------------+--------+------------+
+| id | proveedor_id | nombre           | precio | existencia |
++----+--------------+------------------+--------+------------+
+|  1 |            1 | NEVERA           | 500.25 |          6 |
+|  2 |            1 | CONGELADOR       | 250.75 |          3 |
+|  3 |            1 | LAVADORA 10KG    | 300.00 |          8 |
+|  4 |            5 | COCINA A GAS     | 120.00 |         10 |
+|  5 |            2 | CONGELADOR       | 275.00 |          5 |
+|  6 |            2 | HORNO ELECTRICO  | 450.00 |          3 |
+|  7 |            2 | LAVADORA 10KG    | 295.00 |         12 |
+|  8 |            6 | COCINA ELECTRICA | 350.00 |          2 |
+|  9 |            3 | NEVERA           | 450.00 |          3 |
+| 10 |            3 | LAVADORA         | 380.00 |          6 |
+| 11 |            3 | COCINA A GAS     | 230.00 |         12 |
+| 12 |            7 | COCINA ELECTRICA | 390.00 |          8 |
+| 13 |            4 | NEVERA           | 590.75 |          3 |
+| 14 |            4 | CONGELADOR       | 249.99 |          6 |
+| 15 |            4 | LAVADORA 10KG    | 310.00 |          3 |
+| 16 |            8 | COCINA A GAS     | 170.00 |          8 |
++----+--------------+------------------+--------+------------+
+16 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> insert into proveedores(id, nombre, direccion, correo_electronico, telefono, persona_contacto)
+    -> values
+    -> (9,'MABE','BOLEITA NORTE', 'info@mabe.com', '0212-7431234','NORMA GAINFA');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+------------------+--------------+------------------+--------+
+| nombre           | persona_contacto | telefono     | nombre           | precio |
++------------------+------------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS    | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN       | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | COCINA A GAS     | 230.00 |
+| SONY             | SUSANA MIR       | 0212-2431234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| MABE             | NORMA GAINFA     | 0212-7431234 | NULL             |   NULL |
+| NULL             | NULL             | NULL         | COCINA A GAS     | 170.00 |
++------------------+------------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> use bd_alejandro_20250714
+Database changed
+MariaDB [bd_alejandro_20250714]> select * from proveedores;
++----+------------------+-------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion               | correo_electronico  | telefono     | persona_contacto |
++----+------------------+-------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV.LECUNA               | Info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV.ROMULO GALLEGOS      | info@whirpool.com   | 0212-9871234 | YOLANDATORTOZA   |
+|  3 | ELECTROLUX       | AV.PPAL.DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV.SAN MARTIN           | info@lg.com         | 0212-4431234 | MARIA ROMERO     |
+|  5 | DAMASCO          | AV.FCO.MIRANDA          | info@damasco,com    | 0212-2341234 | RORAIMA ROJAS    |
+|  6 | HAIER            | AV.PPL,DEL VALLE        | info@haier.com      | 0212-6431234 | SOFIA CHANG      |
+|  7 | SONY             | AV.FCO,DE MIRANDA       | info@SONY.com       | 0212-2431234 | SUSANA MIR       |
++----+------------------+-------------------------+---------------------+--------------+------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bd_alejandro_20250714]> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos.nombre as producto,
+    ->        productos.precio
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+ERROR 1054 (42S22): Unknown column 'proveedores.nombre' in 'field list'
+MariaDB [bd_alejandro_20250714]> describe proveedores;
++--------------------+-------------+------+-----+---------+----------------+
+| Field              | Type        | Null | Key | Default | Extra          |
++--------------------+-------------+------+-----+---------+----------------+
+| id                 | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre             | varchar(80) | YES  |     | NULL    |                |
+| direccion          | text        | YES  |     | NULL    |                |
+| correo_electronico | varchar(80) | YES  | UNI | NULL    |                |
+| telefono           | varchar(80) | YES  |     | NULL    |                |
+| persona_contacto   | varchar(80) | YES  |     | NULL    |                |
++--------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.004 sec)
+
+MariaDB [bd_alejandro_20250714]> use bd_henry_20250714
+Database changed
+MariaDB [bd_henry_20250714]> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos.nombre as producto,
+    ->        productos.precio
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+ERROR 1054 (42S22): Unknown column 'proveedores.nombre' in 'field list'
+MariaDB [bd_henry_20250714]> select nombre from proveedores;
++------------------+
+| nombre           |
++------------------+
+| GENERAL ELECTRIC |
+| WHIRPOOL         |
+| ELECTROLUX       |
+| LG               |
+| DAMASCO          |
+| HAIR             |
+| SONY             |
+| MABE             |
++------------------+
+8 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select       proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos.nombre as producto,
+    ->        productos.precio
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+ERROR 1054 (42S22): Unknown column 'proveedores.persona_contacto' in 'field list'
+MariaDB [bd_henry_20250714]> select A.nombre as proveedor,
+    ->        A.persona_contacto as contacto,
+    ->        A.telefono,
+    ->        B.nombre as producto,
+    ->        B.precio
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
++------------------+-----------------+--------------+------------------+--------+
+| proveedor        | contacto        | telefono     | producto         | precio |
++------------------+-----------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |
+| DAMASCO          | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |
++------------------+-----------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select A.nombre as proveedor,
+    ->       A.persona_contacto as contacto,
+    ->       A.telefono,
+    ->       B.nombre as producto,
+    ->       B.precio
+    ->       from proveedores as A
+    ->       inner join productos as B
+    ->       on B.proveedores_id = A.id;
+ERROR 1054 (42S22): Unknown column 'B.proveedores_id' in 'on clause'
+MariaDB [bd_henry_20250714]> create view vista_prov_prod_01 as
+    -> select A.nombre as proveedor,
+    ->        A.persona_contacto as contacto,
+    ->        A.telefono,
+    ->        B.nombre as producto,
+    ->        B.precio
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prov_prod_01          |
++-----------------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_01;
++------------------+-----------------+--------------+------------------+--------+
+| proveedor        | contacto        | telefono     | producto         | precio |
++------------------+-----------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |
+| DAMASCO          | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |
++------------------+-----------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> describe proveedores;
++--------------------+-------------+------+-----+---------+----------------+
+| Field              | Type        | Null | Key | Default | Extra          |
++--------------------+-------------+------+-----+---------+----------------+
+| id                 | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre             | varchar(80) | YES  |     | NULL    |                |
+| direccion          | text        | YES  |     | NULL    |                |
+| correo_electronico | varchar(80) | YES  | UNI | NULL    |                |
+| telefono           | varchar(80) | YES  |     | NULL    |                |
+| persona_contacto   | varchar(80) | YES  |     | NULL    |                |
++--------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]> describe productos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| proveedor_id | int(11)       | YES  | MUL | NULL    |                |
+| nombre       | varchar(80)   | YES  |     | NULL    |                |
+| precio       | decimal(13,2) | YES  |     | NULL    |                |
+| existencia   | int(11)       | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]>        A.direccion,
+    ->        A.correo_electronico,
+    ->        A.persona_contacto as contacto,
+    ->        A.telefono,
+    ->        B.nombre as producto,
+    ->        B.precio,
+    ->        B.existencia
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'A.direccion,
+       A.correo_electronico,
+       A.persona_contacto as contac...' at line 1
+MariaDB [bd_henry_20250714]> select A.nombre as proveedor,
+    ->        A.direccion,
+    ->        A.correo_electronico,
+    ->        A.persona_contacto as contacto,
+    ->        A.telefono,
+    ->        B.nombre as producto,
+    ->        B.precio,
+    ->        B.existencia
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| proveedor        | direccion                 | correo_electronico  | contacto        | telefono     | producto         | precio | existencia |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |          6 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |          3 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |          8 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |         10 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |          5 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |          3 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |         12 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |          2 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |          3 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |          6 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |         12 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |          8 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |          6 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |          8 |
+| DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |          9 |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> create view vista_prov_prod_02 as
+    -> select A.nombre as proveedor,
+    ->        A.direccion,
+    ->        A.correo_electronico,
+    ->        A.persona_contacto as contacto,
+    ->        A.telefono,
+    ->        B.nombre as producto,
+    ->        B.precio,
+    ->        B.existencia
+    ->        from proveedores as A
+    ->        inner join productos as B
+    ->        on B.proveedor_id = A.id;
+Query OK, 0 rows affected (0.002 sec)
+
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prov_prod_01          |
+| vista_prov_prod_02          |
++-----------------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_02;
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| proveedor        | direccion                 | correo_electronico  | contacto        | telefono     | producto         | precio | existencia |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |          6 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |          3 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |          8 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |         10 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |          5 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |          3 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |         12 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |          2 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |          3 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |          6 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |         12 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |          8 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |          6 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |          8 |
+| DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |          9 |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> -- sumatoria
+MariaDB [bd_henry_20250714]> select sum(existencia) from vista_prov_prod_02;
++-----------------+
+| sum(existencia) |
++-----------------+
+|             107 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> -- mínimo
+MariaDB [bd_henry_20250714]> select min(precio) from vista_prov_prod_02;
++-------------+
+| min(precio) |
++-------------+
+|      120.00 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> -- máximo
+MariaDB [bd_henry_20250714]> select max(precio) from vista_prov_prod_02;
++-------------+
+| max(precio) |
++-------------+
+|      590.75 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> -- promedio
+MariaDB [bd_henry_20250714]> select avg(precio) from vista_prov_prod_02;
++-------------+
+| avg(precio) |
++-------------+
+|  335.999412 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> -- contar
+MariaDB [bd_henry_20250714]> select count(*) from vista_prov_prod_02;
++----------+
+| count(*) |
++----------+
+|       17 |
++----------+
+1 row in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]> help functions
+You asked for help about help category: "Functions"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Bit Functions
+   Comparison Operators
+   Control Flow Functions
+   Date and Time Functions
+   Dynamic Column Functions
+   Encryption Functions
+   Information Functions
+   JSON Functions
+   Logical Operators
+   Miscellaneous Functions
+   Numeric Functions
+   Spider Functions
+   String Functions
+   Window Functions
+
+MariaDB [bd_henry_20250714]> help Numeric Functions
+You asked for help about help category: "Numeric Functions"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   ABS
+   ACOS
+   ASIN
+   ATAN
+   ATAN2
+   Addition Operator (+)
+   CEIL
+   CEILING
+   CONV
+   COS
+   COT
+   CRC32
+   DEGREES
+   DIV
+   Division Operator (/)
+   EXP
+   FLOOR
+   LN
+   LOG
+   LOG10
+   LOG2
+   MOD
+   Modulo Operator (%)
+   Multiplication Operator (*)
+   OCT
+   PI
+   POW
+   POWER
+   RADIANS
+   RAND
+   ROUND
+   SIGN
+   SIN
+   SQRT
+   Subtraction Operator (-)
+   TAN
+   TRUNCATE
+
+MariaDB [bd_henry_20250714]> select pow(2,10);
++-----------+
+| pow(2,10) |
++-----------+
+|      1024 |
++-----------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select sqrt(9);
++---------+
+| sqrt(9) |
++---------+
+|       3 |
++---------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select md5('uneweb');
++----------------------------------+
+| md5('uneweb')                    |
++----------------------------------+
+| be08e99bfa6bbdb74329d8d5b4d4396c |
++----------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select md5('caracas');
++----------------------------------+
+| md5('caracas')                   |
++----------------------------------+
+| 9862677269c0bc2fb303929ffafa3ed3 |
++----------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> help Encryption Functions
+You asked for help about help category: "Encryption Functions"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   AES_DECRYPT
+   AES_ENCRYPT
+   COMPRESS
+   DECODE
+   DES_DECRYPT
+   DES_ENCRYPT
+   ENCODE
+   ENCRYPT
+   MD5
+   OLD_PASSWORD
+   PASSWORD
+   SHA1
+   SHA2
+   UNCOMPRESS
+   UNCOMPRESSED_LENGTH
+
+MariaDB [bd_henry_20250714]> help ENCODE
+Name: 'ENCODE'
+Description:
+Syntax
+------
+ENCODE(str,pass_str)
+
+Description
+-----------
+ENCODE is not considered cryptographically secure, and
+should not be used for password encryption.
+
+Encrypt str using pass_str as the password. To decrypt the
+result, use
+DECODE().
+
+The result is a binary string of the same length as str.
+
+The strength of the encryption is based on how good the
+random generator is.
+
+It is not recommended to rely on the encryption performed by
+the ENCODE function. Using a salt value (changed when a
+password is updated) will improve matters somewhat, but for
+storing passwords, consider a more cryptographically secure
+function, such as SHA2().
+
+Examples
+--------
+ENCODE('not so secret text',
+CONCAT('random_salt','password'))
+
+
+
+
+
+
+
+
+
+
+URL: https://mariadb.com/kb/en/encode/
+MariaDB [bd_henry_20250714]> select encode('no es un texto seguro', concat('random_salt','password'));
++-------------------------------------------------------------------+
+| encode('no es un texto seguro', concat('random_salt','password')) |
++-------------------------------------------------------------------+
+| }óÐ∟h »æÄ+N▀QÔÞqÉÌÿk±                                                        |
++-------------------------------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> help decode;
+Name: 'DECODE'
+Description:
+Syntax
+------
+DECODE(crypt_str,pass_str)
+
+Description
+-----------
+Decrypts the encrypted string crypt_str using pass_str as
+the
+password. crypt_str should be a string returned from
+ENCODE(). The resulting string will be the original string
+only if pass_str is the same.
+
+
+
+
+
+
+
+
+
+
+URL: https://mariadb.com/kb/en/decode/
+MariaDB [bd_henry_20250714]> select decode('}óÐ∟h »æÄ+N▀QÔÞqÉÌÿk±', concat('random_salt','password'));
++-------------------------------------------------------------------------------------------------+
+| decode('}\xA2\xD1∟h \xAF\x91\x8E+N\xDFQ\xE2\xE8q\x90Ìÿk\xF1', concat('random_salt','password'))  |
++-------------------------------------------------------------------------------------------------+
+| no es↔ÕÐ▲µçÈ ±Ý~X┐âhF                                                                                    |
++-------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select decode(}óÐ∟h »æÄ+N▀QÔÞqÉÌÿk±, concat('random_salt','password'));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '}??∟h ???+N?Q??q?Ìÿk?, concat('random_salt','password'))' at line 1
+MariaDB [bd_henry_20250714]> select decode("}óÐ∟h »æÄ+N▀QÔÞqÉÌÿk±", concat('random_salt','password'));
++-------------------------------------------------------------------------------------------------+
+| decode("}\xA2\xD1∟h \xAF\x91\x8E+N\xDFQ\xE2\xE8q\x90Ìÿk\xF1", concat('random_salt','password'))  |
++-------------------------------------------------------------------------------------------------+
+| no es↔ÕÐ▲µçÈ ±Ý~X┐âhF                                                                                    |
++-------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select decode("}\xA2\xD1∟h \xAF\x91\x8E+N\xDFQ\xE2\xE8q\x90Ìÿk\xF1", concat('random_salt','password'));
++-------------------------------------------------------------------------------------------------+
+| decode("}\xA2\xD1∟h \xAF\x91\x8E+N\xDFQ\xE2\xE8q\x90Ìÿk\xF1", concat('random_salt','password'))  |
++-------------------------------------------------------------------------------------------------+
+| nÏ¡§À♂ï■­ ä°:ä¤├♣¨©‼|A'Çì®YLü ↕ÞOì1▄f►ÈÂ☻                                                                             |
++-------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto = 'NEVERA' or producto = 'LAVADORA' or producto = 'COCINA';
++----------+--------+------------+
+| producto | precio | existencia |
++----------+--------+------------+
+| NEVERA   | 500.25 |          6 |
+| NEVERA   | 450.00 |          3 |
+| LAVADORA | 380.00 |          6 |
+| NEVERA   | 590.75 |          3 |
+| NEVERA   | 400.25 |          9 |
++----------+--------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto = 'NEVERA' or producto = 'LAVADORA' or producto = 'AA';
++----------+--------+------------+
+| producto | precio | existencia |
++----------+--------+------------+
+| NEVERA   | 500.25 |          6 |
+| NEVERA   | 450.00 |          3 |
+| LAVADORA | 380.00 |          6 |
+| NEVERA   | 590.75 |          3 |
+| NEVERA   | 400.25 |          9 |
++----------+--------+------------+
+5 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto = 'NEVERA' or producto = 'LAVADORA' or producto = 'CONGELADOR';
++------------+--------+------------+
+| producto   | precio | existencia |
++------------+--------+------------+
+| NEVERA     | 500.25 |          6 |
+| CONGELADOR | 250.75 |          3 |
+| CONGELADOR | 275.00 |          5 |
+| NEVERA     | 450.00 |          3 |
+| LAVADORA   | 380.00 |          6 |
+| NEVERA     | 590.75 |          3 |
+| CONGELADOR | 249.99 |          6 |
+| NEVERA     | 400.25 |          9 |
++------------+--------+------------+
+8 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto in ('NEVERA', 'LAVADORA', 'CONGELADOR');
++------------+--------+------------+
+| producto   | precio | existencia |
++------------+--------+------------+
+| NEVERA     | 500.25 |          6 |
+| CONGELADOR | 250.75 |          3 |
+| CONGELADOR | 275.00 |          5 |
+| NEVERA     | 450.00 |          3 |
+| LAVADORA   | 380.00 |          6 |
+| NEVERA     | 590.75 |          3 |
+| CONGELADOR | 249.99 |          6 |
+| NEVERA     | 400.25 |          9 |
++------------+--------+------------+
+8 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where not(producto = 'NEVERA' or producto = 'LAVADORA' or producto = 'CONGELADOR');
++------------------+--------+------------+
+| producto         | precio | existencia |
++------------------+--------+------------+
+| LAVADORA 10KG    | 300.00 |          8 |
+| COCINA A GAS     | 120.00 |         10 |
+| HORNO ELECTRICO  | 450.00 |          3 |
+| LAVADORA 10KG    | 295.00 |         12 |
+| COCINA ELECTRICA | 350.00 |          2 |
+| COCINA A GAS     | 230.00 |         12 |
+| COCINA ELECTRICA | 390.00 |          8 |
+| LAVADORA 10KG    | 310.00 |          3 |
+| COCINA A GAS     | 170.00 |          8 |
++------------------+--------+------------+
+9 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto not in ('NEVERA', 'LAVADORA', 'CONGELADOR');
++------------------+--------+------------+
+| producto         | precio | existencia |
++------------------+--------+------------+
+| LAVADORA 10KG    | 300.00 |          8 |
+| COCINA A GAS     | 120.00 |         10 |
+| HORNO ELECTRICO  | 450.00 |          3 |
+| LAVADORA 10KG    | 295.00 |         12 |
+| COCINA ELECTRICA | 350.00 |          2 |
+| COCINA A GAS     | 230.00 |         12 |
+| COCINA ELECTRICA | 390.00 |          8 |
+| LAVADORA 10KG    | 310.00 |          3 |
+| COCINA A GAS     | 170.00 |          8 |
++------------------+--------+------------+
+9 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where precio >= 200 and precio <= 500;
++------------------+--------+------------+
+| producto         | precio | existencia |
++------------------+--------+------------+
+| CONGELADOR       | 250.75 |          3 |
+| LAVADORA 10KG    | 300.00 |          8 |
+| CONGELADOR       | 275.00 |          5 |
+| HORNO ELECTRICO  | 450.00 |          3 |
+| LAVADORA 10KG    | 295.00 |         12 |
+| COCINA ELECTRICA | 350.00 |          2 |
+| NEVERA           | 450.00 |          3 |
+| LAVADORA         | 380.00 |          6 |
+| COCINA A GAS     | 230.00 |         12 |
+| COCINA ELECTRICA | 390.00 |          8 |
+| CONGELADOR       | 249.99 |          6 |
+| LAVADORA 10KG    | 310.00 |          3 |
+| NEVERA           | 400.25 |          9 |
++------------------+--------+------------+
+13 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where not (precio >= 200 and precio <= 500);
++--------------+--------+------------+
+| producto     | precio | existencia |
++--------------+--------+------------+
+| NEVERA       | 500.25 |          6 |
+| COCINA A GAS | 120.00 |         10 |
+| NEVERA       | 590.75 |          3 |
+| COCINA A GAS | 170.00 |          8 |
++--------------+--------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where precio not (between 200 and 500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(between 200 and 500)' at line 2
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where not (precio between 200 and 500);
++--------------+--------+------------+
+| producto     | precio | existencia |
++--------------+--------+------------+
+| NEVERA       | 500.25 |          6 |
+| COCINA A GAS | 120.00 |         10 |
+| NEVERA       | 590.75 |          3 |
+| COCINA A GAS | 170.00 |          8 |
++--------------+--------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> SELECT producto, precio, existencia from vista_prov_prod_02
+    -> where producto like '%COCINA%';
++------------------+--------+------------+
+| producto         | precio | existencia |
++------------------+--------+------------+
+| COCINA A GAS     | 120.00 |         10 |
+| COCINA ELECTRICA | 350.00 |          2 |
+| COCINA A GAS     | 230.00 |         12 |
+| COCINA ELECTRICA | 390.00 |          8 |
+| COCINA A GAS     | 170.00 |          8 |
++------------------+--------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre,
+    ->        proveedores.persona_contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+------------------+--------------+------------------+--------+
+| nombre           | persona_contacto | telefono     | nombre           | precio |
++------------------+------------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ      | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS    | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA  | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN       | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS  | 0212-2671234 | COCINA A GAS     | 230.00 |
+| SONY             | SUSANA MIR       | 0212-2431234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO     | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| MABE             | NORMA GAINFA     | 0212-7431234 | NULL             |   NULL |
+| NULL             | NULL             | NULL         | COCINA A GAS     | 170.00 |
++------------------+------------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre as producto,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre as producto,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
++------------------+-----------------+--------------+------------------+--------+
+| proveedor        | contacto        | telefono     | producto         | precio |
++------------------+-----------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS   | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN      | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |
+| SONY             | SUSANA MIR      | 0212-2431234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| MABE             | NORMA GAINFA    | 0212-7431234 | NULL             |   NULL |
+| NULL             | NULL            | NULL         | COCINA A GAS     | 170.00 |
++------------------+-----------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> create view vista_prov_prod_null as
+    -> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre as producto,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        left join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id
+    ->        UNION
+    -> select proveedores.nombre as proveedor,
+    ->        proveedores.persona_contacto as contacto,
+    ->        proveedores.telefono,
+    ->        productos_sin_fk.nombre as producto,
+    ->        productos_sin_fk.precio
+    ->        from proveedores
+    ->        right join productos_sin_fk
+    ->        on productos_sin_fk.proveedor_id = proveedores.id;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_null;
++------------------+-----------------+--------------+------------------+--------+
+| proveedor        | contacto        | telefono     | producto         | precio |
++------------------+-----------------+--------------+------------------+--------+
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |
+| GENERAL ELECTRIC | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |
+| DAMASCO          | RORAIMA ROJAS   | 0212-2431234 | COCINA A GAS     | 120.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |
+| WHIRPOOL         | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |
+| HAIR             | SOFIA CHAN      | 0212-6431234 | COCINA ELECTRICA | 350.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |
+| ELECTROLUX       | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |
+| SONY             | SUSANA MIR      | 0212-2431234 | COCINA ELECTRICA | 390.00 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |
+| LG               | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |
+| MABE             | NORMA GAINFA    | 0212-7431234 | NULL             |   NULL |
+| NULL             | NULL            | NULL         | COCINA A GAS     | 170.00 |
++------------------+-----------------+--------------+------------------+--------+
+17 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_null where proveedor is null;
++-----------+----------+----------+--------------+--------+
+| proveedor | contacto | telefono | producto     | precio |
++-----------+----------+----------+--------------+--------+
+| NULL      | NULL     | NULL     | COCINA A GAS | 170.00 |
++-----------+----------+----------+--------------+--------+
+1 row in set (0.002 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_null where proveedor = "";
+Empty set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select * from productos_sin_fk;
++----+--------------+------------------+--------+------------+
+| id | proveedor_id | nombre           | precio | existencia |
++----+--------------+------------------+--------+------------+
+|  1 |            1 | NEVERA           | 500.25 |          6 |
+|  2 |            1 | CONGELADOR       | 250.75 |          3 |
+|  3 |            1 | LAVADORA 10KG    | 300.00 |          8 |
+|  4 |            5 | COCINA A GAS     | 120.00 |         10 |
+|  5 |            2 | CONGELADOR       | 275.00 |          5 |
+|  6 |            2 | HORNO ELECTRICO  | 450.00 |          3 |
+|  7 |            2 | LAVADORA 10KG    | 295.00 |         12 |
+|  8 |            6 | COCINA ELECTRICA | 350.00 |          2 |
+|  9 |            3 | NEVERA           | 450.00 |          3 |
+| 10 |            3 | LAVADORA         | 380.00 |          6 |
+| 11 |            3 | COCINA A GAS     | 230.00 |         12 |
+| 12 |            7 | COCINA ELECTRICA | 390.00 |          8 |
+| 13 |            4 | NEVERA           | 590.75 |          3 |
+| 14 |            4 | CONGELADOR       | 249.99 |          6 |
+| 15 |            4 | LAVADORA 10KG    | 310.00 |          3 |
+| 16 |            8 | COCINA A GAS     | 170.00 |          8 |
++----+--------------+------------------+--------+------------+
+16 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> insert into productos_sin_fk(proveedor_id, nombre, precio, existencia)
+    -> values
+    -> (8,'',1.50,100);
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from productos_sin_fk;
++----+--------------+------------------+--------+------------+
+| id | proveedor_id | nombre           | precio | existencia |
++----+--------------+------------------+--------+------------+
+|  1 |            1 | NEVERA           | 500.25 |          6 |
+|  2 |            1 | CONGELADOR       | 250.75 |          3 |
+|  3 |            1 | LAVADORA 10KG    | 300.00 |          8 |
+|  4 |            5 | COCINA A GAS     | 120.00 |         10 |
+|  5 |            2 | CONGELADOR       | 275.00 |          5 |
+|  6 |            2 | HORNO ELECTRICO  | 450.00 |          3 |
+|  7 |            2 | LAVADORA 10KG    | 295.00 |         12 |
+|  8 |            6 | COCINA ELECTRICA | 350.00 |          2 |
+|  9 |            3 | NEVERA           | 450.00 |          3 |
+| 10 |            3 | LAVADORA         | 380.00 |          6 |
+| 11 |            3 | COCINA A GAS     | 230.00 |         12 |
+| 12 |            7 | COCINA ELECTRICA | 390.00 |          8 |
+| 13 |            4 | NEVERA           | 590.75 |          3 |
+| 14 |            4 | CONGELADOR       | 249.99 |          6 |
+| 15 |            4 | LAVADORA 10KG    | 310.00 |          3 |
+| 16 |            8 | COCINA A GAS     | 170.00 |          8 |
+| 17 |            8 |                  |   1.50 |        100 |
++----+--------------+------------------+--------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_null where producto = "";
++-----------+----------+----------+----------+--------+
+| proveedor | contacto | telefono | producto | precio |
++-----------+----------+----------+----------+--------+
+| NULL      | NULL     | NULL     |          |   1.50 |
++-----------+----------+----------+----------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+
+MariaDB [bd_henry_20250714]> select DISTINCT producto FROM VISTA_PROV_PROD_02;
++------------------+
+| producto         |
++------------------+
+| NEVERA           |
+| CONGELADOR       |
+| LAVADORA 10KG    |
+| COCINA A GAS     |
+| HORNO ELECTRICO  |
+| COCINA ELECTRICA |
+| LAVADORA         |
++------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select producto from VISTA_PROV_PROD_02 group by producto;
++------------------+
+| producto         |
++------------------+
+| COCINA A GAS     |
+| COCINA ELECTRICA |
+| CONGELADOR       |
+| HORNO ELECTRICO  |
+| LAVADORA         |
+| LAVADORA 10KG    |
+| NEVERA           |
++------------------+

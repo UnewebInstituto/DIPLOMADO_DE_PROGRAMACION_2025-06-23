@@ -172,20 +172,4 @@ select proveedores.nombre,
 
 ------------------------------------------------------------------------
 
-select proveedores.nombre,
-      proveedores.persona_contacto,
-      proveedores.telefono,
-      productos_sin_fk.nombre,
-      productos_sin_fk.precio
-      from proveedores
-      left join productos_sin_fk
-      on productos_sin_fk.proveedor_id = proveedores.id
-      union
-select proveedores.nombre,
-      proveedores.persona_contacto,
-      proveedores.telefono,
-      productos_sin_fk.nombre,
-      productos_sin_fk.precio
-      from proveedores
-      right join productos_sin_fk
-      on productos_sin_fk.proveedor_id = proveedores.id;
+

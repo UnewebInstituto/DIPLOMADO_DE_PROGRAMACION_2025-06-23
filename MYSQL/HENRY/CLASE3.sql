@@ -163,12 +163,7 @@ select proveedores.nombre,
        proveedores.telefono,
        productos_sin_fk.nombre,
        productos_sin_fk.precio
-       from proveedores, productos_sin_fk;
-
--- full join
-
-
-select proveedores.nombre,
+       from proveedselect proveedores.nombre,
        proveedores.persona_contacto,
        proveedores.telefono,
        productos_sin_fk.nombre,
@@ -184,4 +179,6 @@ select proveedores.nombre,
        productos_sin_fk.precio
        from proveedores
        right join productos_sin_fk
-       on productos_sin_fk.proveedor_id = proveedores.id;
+       on productos_sin_fk.proveedor_id = proveedores.id;ores, productos_sin_fk;
+
+-- full join
