@@ -1,0 +1,1 @@
+C:\xampp\mysql\bin\mysqldump -u root -p --databases bd_reinaldo_20250714 > backups/respaldo_20250717.sql

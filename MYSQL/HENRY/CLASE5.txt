@@ -1,0 +1,634 @@
+
+Setting environment for using XAMPP for Windows.
+Profesor@DESKTOP-ORPPTTD c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MariaDB [(none)]> use bd_henry_20250714
+Database changed
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prov_prod_01          |
+| vista_prov_prod_02          |
+| vista_prov_prod_null        |
++-----------------------------+
+9 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_prod_02;
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| proveedor        | direccion                 | correo_electronico  | contacto        | telefono     | producto         | precio | existencia |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | NEVERA           | 500.25 |          6 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | CONGELADOR       | 250.75 |          3 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | LAVADORA 10KG    | 300.00 |          8 |
+| GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | ANA VASQUEZ     | 0212-5431234 | COCINA A GAS     | 120.00 |         10 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | CONGELADOR       | 275.00 |          5 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | HORNO ELECTRICO  | 450.00 |          3 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | LAVADORA 10KG    | 295.00 |         12 |
+| WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | YOLANDA TORTOZA | 0212-9871234 | COCINA ELECTRICA | 350.00 |          2 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | NEVERA           | 450.00 |          3 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | LAVADORA         | 380.00 |          6 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA A GAS     | 230.00 |         12 |
+| ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | NELLY CONTRERAS | 0212-2671234 | COCINA ELECTRICA | 390.00 |          8 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | NEVERA           | 590.75 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | CONGELADOR       | 249.99 |          6 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | LAVADORA 10KG    | 310.00 |          3 |
+| LG               | AV. SAN MARTIN            | info@lg.com         | MAIBA ROMERO    | 0212-4431234 | COCINA A GAS     | 170.00 |          8 |
+| DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | RORAIMA ROJAS   | 0212-2431234 | NEVERA           | 400.25 |          9 |
++------------------+---------------------------+---------------------+-----------------+--------------+------------------+--------+------------+
+17 rows in set (0.007 sec)
+
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto, sum(existencia) FROM vista_prov_prod_02;
++----------+-----------------+
+| producto | sum(existencia) |
++----------+-----------------+
+| NEVERA   |             107 |
++----------+-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto FROM vista_prov_prod_02;
++------------------+
+| producto         |
++------------------+
+| NEVERA           |
+| CONGELADOR       |
+| LAVADORA 10KG    |
+| COCINA A GAS     |
+| HORNO ELECTRICO  |
+| COCINA ELECTRICA |
+| LAVADORA         |
++------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto, sum(existencia)
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
++------------------+-----------------+
+| producto         | sum(existencia) |
++------------------+-----------------+
+| COCINA A GAS     |              30 |
+| COCINA ELECTRICA |              10 |
+| CONGELADOR       |              14 |
+| HORNO ELECTRICO  |               3 |
+| LAVADORA         |               6 |
+| LAVADORA 10KG    |              23 |
+| NEVERA           |              21 |
++------------------+-----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto,
+    -> sum(existencia) as existencia,
+    -> min(precio) as precio_minimo,
+    -> max(precio) as precio_maximo,
+    -> avg(precio) as precio_promedio
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
++------------------+------------+---------------+---------------+-----------------+
+| producto         | existencia | precio_minimo | precio_maximo | precio_promedio |
++------------------+------------+---------------+---------------+-----------------+
+| COCINA A GAS     |         30 |        120.00 |        230.00 |      173.333333 |
+| COCINA ELECTRICA |         10 |        350.00 |        390.00 |      370.000000 |
+| CONGELADOR       |         14 |        249.99 |        275.00 |      258.580000 |
+| HORNO ELECTRICO  |          3 |        450.00 |        450.00 |      450.000000 |
+| LAVADORA         |          6 |        380.00 |        380.00 |      380.000000 |
+| LAVADORA 10KG    |         23 |        295.00 |        310.00 |      301.666667 |
+| NEVERA           |         21 |        400.25 |        590.75 |      485.312500 |
++------------------+------------+---------------+---------------+-----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto,
+    -> sum(existencia) as existencia,
+    -> min(precio) as precio_minimo,
+    -> max(precio) as precio_maximo,
+    -> avg(precio) as precio_promedio
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
++------------------+------------+---------------+---------------+-----------------+
+| producto         | existencia | precio_minimo | precio_maximo | precio_promedio |
++------------------+------------+---------------+---------------+-----------------+
+| COCINA A GAS     |         30 |        120.00 |        230.00 |      173.333333 |
+| COCINA ELECTRICA |         10 |        350.00 |        390.00 |      370.000000 |
+| CONGELADOR       |         14 |        249.99 |        275.00 |      258.580000 |
+| HORNO ELECTRICO  |          3 |        450.00 |        450.00 |      450.000000 |
+| LAVADORA         |          6 |        380.00 |        380.00 |      380.000000 |
+| LAVADORA 10KG    |         23 |        295.00 |        310.00 |      301.666667 |
+| NEVERA           |         21 |        400.25 |        590.75 |      485.312500 |
++------------------+------------+---------------+---------------+-----------------+
+7 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> SELECT DISTINCT producto,
+    -> sum(existencia) as existencia,
+    -> min(precio) as precio_minimo,
+    -> max(precio) as precio_maximo,
+    -> round(avg(precio),2) as precio_promedio
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
++------------------+------------+---------------+---------------+-----------------+
+| producto         | existencia | precio_minimo | precio_maximo | precio_promedio |
++------------------+------------+---------------+---------------+-----------------+
+| COCINA A GAS     |         30 |        120.00 |        230.00 |          173.33 |
+| COCINA ELECTRICA |         10 |        350.00 |        390.00 |          370.00 |
+| CONGELADOR       |         14 |        249.99 |        275.00 |          258.58 |
+| HORNO ELECTRICO  |          3 |        450.00 |        450.00 |          450.00 |
+| LAVADORA         |          6 |        380.00 |        380.00 |          380.00 |
+| LAVADORA 10KG    |         23 |        295.00 |        310.00 |          301.67 |
+| NEVERA           |         21 |        400.25 |        590.75 |          485.31 |
++------------------+------------+---------------+---------------+-----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>   SELECT proveedor, sum(existencia)
+    -> FROM vista_prov_prod_02
+    -> GROUP BY proveedor;
++------------------+-----------------+
+| proveedor        | sum(existencia) |
++------------------+-----------------+
+| DAMASCO          |               9 |
+| ELECTROLUX       |              29 |
+| GENERAL ELECTRIC |              27 |
+| LG               |              20 |
+| WHIRPOOL         |              22 |
++------------------+-----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> create view vista_prod_inventario as
+    -> SELECT DISTINCT producto, sum(existencia)
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [bd_henry_20250714]> create view vista_prov_inventario as
+    -> SELECT proveedor, sum(existencia)
+    -> FROM vista_prov_prod_02
+    -> GROUP BY proveedor;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [bd_henry_20250714]> create view vista_prod_resumen as
+    -> SELECT DISTINCT producto,
+    -> sum(existencia) as existencia,
+    -> min(precio) as precio_minimo,
+    -> max(precio) as precio_maximo,
+    -> round(avg(precio),2) as precio_promedio
+    -> FROM vista_prov_prod_02
+    -> GROUP BY producto;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prod_inventario       |
+| vista_prod_resumen          |
+| vista_prov_inventario       |
+| vista_prov_prod_01          |
+| vista_prov_prod_02          |
+| vista_prov_prod_null        |
++-----------------------------+
+12 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prod_inventario;
++------------------+-----------------+
+| producto         | sum(existencia) |
++------------------+-----------------+
+| COCINA A GAS     |              30 |
+| COCINA ELECTRICA |              10 |
+| CONGELADOR       |              14 |
+| HORNO ELECTRICO  |               3 |
+| LAVADORA         |               6 |
+| LAVADORA 10KG    |              23 |
+| NEVERA           |              21 |
++------------------+-----------------+
+7 rows in set (0.007 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> select * from vista_producto_resumen;
+ERROR 1146 (42S02): Table 'bd_henry_20250714.vista_producto_resumen' doesn't exist
+MariaDB [bd_henry_20250714]> select * from vista_prod_resumen;
++------------------+------------+---------------+---------------+-----------------+
+| producto         | existencia | precio_minimo | precio_maximo | precio_promedio |
++------------------+------------+---------------+---------------+-----------------+
+| COCINA A GAS     |         30 |        120.00 |        230.00 |          173.33 |
+| COCINA ELECTRICA |         10 |        350.00 |        390.00 |          370.00 |
+| CONGELADOR       |         14 |        249.99 |        275.00 |          258.58 |
+| HORNO ELECTRICO  |          3 |        450.00 |        450.00 |          450.00 |
+| LAVADORA         |          6 |        380.00 |        380.00 |          380.00 |
+| LAVADORA 10KG    |         23 |        295.00 |        310.00 |          301.67 |
+| NEVERA           |         21 |        400.25 |        590.75 |          485.31 |
++------------------+------------+---------------+---------------+-----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select * from vista_prov_inventario;
++------------------+-----------------+
+| proveedor        | sum(existencia) |
++------------------+-----------------+
+| DAMASCO          |               9 |
+| ELECTROLUX       |              29 |
+| GENERAL ELECTRIC |              27 |
+| LG               |              20 |
+| WHIRPOOL         |              22 |
++------------------+-----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_prod_inventario       |
+| vista_prod_resumen          |
+| vista_prov_inventario       |
+| vista_prov_prod_01          |
+| vista_prov_prod_02          |
+| vista_prov_prod_null        |
++-----------------------------+
+12 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by producto;
++------------------+------------------+--------+------------+
+| producto         | proveedor        | precio | existencia |
++------------------+------------------+--------+------------+
+| COCINA A GAS     | ELECTROLUX       | 230.00 |         12 |
+| COCINA A GAS     | GENERAL ELECTRIC | 120.00 |         10 |
+| COCINA A GAS     | LG               | 170.00 |          8 |
+| COCINA ELECTRICA | WHIRPOOL         | 350.00 |          2 |
+| COCINA ELECTRICA | ELECTROLUX       | 390.00 |          8 |
+| CONGELADOR       | LG               | 249.99 |          6 |
+| CONGELADOR       | WHIRPOOL         | 275.00 |          5 |
+| CONGELADOR       | GENERAL ELECTRIC | 250.75 |          3 |
+| HORNO ELECTRICO  | WHIRPOOL         | 450.00 |          3 |
+| LAVADORA         | ELECTROLUX       | 380.00 |          6 |
+| LAVADORA 10KG    | WHIRPOOL         | 295.00 |         12 |
+| LAVADORA 10KG    | GENERAL ELECTRIC | 300.00 |          8 |
+| LAVADORA 10KG    | LG               | 310.00 |          3 |
+| NEVERA           | GENERAL ELECTRIC | 500.25 |          6 |
+| NEVERA           | LG               | 590.75 |          3 |
+| NEVERA           | ELECTROLUX       | 450.00 |          3 |
+| NEVERA           | DAMASCO          | 400.25 |          9 |
++------------------+------------------+--------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by precio desc;
++------------------+------------------+--------+------------+
+| producto         | proveedor        | precio | existencia |
++------------------+------------------+--------+------------+
+| NEVERA           | LG               | 590.75 |          3 |
+| NEVERA           | GENERAL ELECTRIC | 500.25 |          6 |
+| NEVERA           | ELECTROLUX       | 450.00 |          3 |
+| HORNO ELECTRICO  | WHIRPOOL         | 450.00 |          3 |
+| NEVERA           | DAMASCO          | 400.25 |          9 |
+| COCINA ELECTRICA | ELECTROLUX       | 390.00 |          8 |
+| LAVADORA         | ELECTROLUX       | 380.00 |          6 |
+| COCINA ELECTRICA | WHIRPOOL         | 350.00 |          2 |
+| LAVADORA 10KG    | LG               | 310.00 |          3 |
+| LAVADORA 10KG    | GENERAL ELECTRIC | 300.00 |          8 |
+| LAVADORA 10KG    | WHIRPOOL         | 295.00 |         12 |
+| CONGELADOR       | WHIRPOOL         | 275.00 |          5 |
+| CONGELADOR       | GENERAL ELECTRIC | 250.75 |          3 |
+| CONGELADOR       | LG               | 249.99 |          6 |
+| COCINA A GAS     | ELECTROLUX       | 230.00 |         12 |
+| COCINA A GAS     | LG               | 170.00 |          8 |
+| COCINA A GAS     | GENERAL ELECTRIC | 120.00 |         10 |
++------------------+------------------+--------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by precio desc, producto asc;
++------------------+------------------+--------+------------+
+| producto         | proveedor        | precio | existencia |
++------------------+------------------+--------+------------+
+| NEVERA           | LG               | 590.75 |          3 |
+| NEVERA           | GENERAL ELECTRIC | 500.25 |          6 |
+| HORNO ELECTRICO  | WHIRPOOL         | 450.00 |          3 |
+| NEVERA           | ELECTROLUX       | 450.00 |          3 |
+| NEVERA           | DAMASCO          | 400.25 |          9 |
+| COCINA ELECTRICA | ELECTROLUX       | 390.00 |          8 |
+| LAVADORA         | ELECTROLUX       | 380.00 |          6 |
+| COCINA ELECTRICA | WHIRPOOL         | 350.00 |          2 |
+| LAVADORA 10KG    | LG               | 310.00 |          3 |
+| LAVADORA 10KG    | GENERAL ELECTRIC | 300.00 |          8 |
+| LAVADORA 10KG    | WHIRPOOL         | 295.00 |         12 |
+| CONGELADOR       | WHIRPOOL         | 275.00 |          5 |
+| CONGELADOR       | GENERAL ELECTRIC | 250.75 |          3 |
+| CONGELADOR       | LG               | 249.99 |          6 |
+| COCINA A GAS     | ELECTROLUX       | 230.00 |         12 |
+| COCINA A GAS     | LG               | 170.00 |          8 |
+| COCINA A GAS     | GENERAL ELECTRIC | 120.00 |         10 |
++------------------+------------------+--------+------------+
+17 rows in set (0.000 sec)
+
+MariaDB [bd_henry_20250714]> -- vistas a partir de las consultas
+MariaDB [bd_henry_20250714]> -- Por omisión el ordenamiento es ascendente
+MariaDB [bd_henry_20250714]> create view vista_orden1 as
+    -> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by producto;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> -- Ordenamiento de manera descendente
+MariaDB [bd_henry_20250714]> create view vista_orden2 as
+    -> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by precio desc;
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> -- Combinando 2 campos en la operación de consulta
+MariaDB [bd_henry_20250714]> -- Ordenamiento de manera descendente
+MariaDB [bd_henry_20250714]> create view vista_orden3 as
+    -> select producto, proveedor, precio, existencia
+    -> from vista_prov_prod_02
+    -> order by precio desc, producto asc;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> show tables;
++-----------------------------+
+| Tables_in_bd_henry_20250714 |
++-----------------------------+
+| personas                    |
+| personas1                   |
+| personas2                   |
+| productos                   |
+| productos_sin_fk            |
+| proveedores                 |
+| vista_orden1                |
+| vista_orden2                |
+| vista_orden3                |
+| vista_prod_inventario       |
+| vista_prod_resumen          |
+| vista_prov_inventario       |
+| vista_prov_prod_01          |
+| vista_prov_prod_02          |
+| vista_prov_prod_null        |
++-----------------------------+
+15 rows in set (0.001 sec)
+
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]>
+MariaDB [bd_henry_20250714]> describe personas
+    ->
+    -> ;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| id                 | int(11)     | YES  |     | NULL    |       |
+| doc                | char(1)     | YES  |     | NULL    |       |
+| nro                | varchar(8)  | YES  |     | NULL    |       |
+| nombre             | varchar(80) | YES  |     | NULL    |       |
+| apellido           | varchar(80) | YES  |     | NULL    |       |
+| telefono_hab       | varchar(20) | YES  |     | NULL    |       |
+| direccion          | text        | YES  |     | NULL    |       |
+| correo_electronico | varchar(80) | YES  |     | NULL    |       |
+| fecha_nacimiento   | date        | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+9 rows in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]> describe personas2;
++--------------------+-------------+------+-----+---------+----------------+
+| Field              | Type        | Null | Key | Default | Extra          |
++--------------------+-------------+------+-----+---------+----------------+
+| id                 | int(11)     | NO   | PRI | NULL    | auto_increment |
+| doc                | char(1)     | YES  | MUL | NULL    |                |
+| nro                | int(11)     | YES  |     | NULL    |                |
+| nombre             | varchar(80) | YES  |     | NULL    |                |
+| apellido           | varchar(80) | YES  |     | NULL    |                |
+| direccion          | text        | YES  |     | NULL    |                |
+| correo_electronico | varchar(80) | YES  | UNI | NULL    |                |
+| fecha_nacimiento   | date        | YES  |     | NULL    |                |
++--------------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.003 sec)
+
+MariaDB [bd_henry_20250714]> use bd_henry_20250718;
+Database changed
+MariaDB [bd_henry_20250718]> SELECT * FROM `personas2` WHERE `correo_electronico` LIKE '%ana%';
++----+-----+------+--------+----------+-----------+----------------------+------------------+
+| id | doc | nro  | nombre | apellido | direccion | correo_electronico   | fecha_nacimiento |
++----+-----+------+--------+----------+-----------+----------------------+------------------+
+|  1 | V   | 1234 | ANA    | VASQUEZ  | SANTA FE  | anavasquez@gmail.com | 1965-08-15       |
++----+-----+------+--------+----------+-----------+----------------------+------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250718]> show create table productos;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                               |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| productos | CREATE TABLE `productos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proveedor_id` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `precio` decimal(13,2) NOT NULL,
+  `existencia` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_proveedor_id` (`proveedor_id`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.001 sec)
+
+MariaDB [bd_henry_20250718]>
+MariaDB [bd_henry_20250718]>
+MariaDB [bd_henry_20250718]> show create table productos;
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                               |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| productos | CREATE TABLE `productos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proveedor_id` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `precio` decimal(13,2) NOT NULL,
+  `existencia` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_proveedor_id` (`proveedor_id`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_henry_20250718]>
+MariaDB [bd_henry_20250718]>
+MariaDB [bd_henry_20250718]> use bd_reinaldo_20250718
+Database changed
+MariaDB [bd_reinaldo_20250718]> show tables;
++--------------------------------+
+| Tables_in_bd_reinaldo_20250718 |
++--------------------------------+
+| personas2                      |
+| productos                      |
+| proveedores                    |
++--------------------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [bd_reinaldo_20250718]> select * from proveedores;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [bd_reinaldo_20250718]> select * from productos;
++----+--------------+--------+--------+------------+
+| id | proveedor_id | nombre | precio | existencia |
++----+--------------+--------+--------+------------+
+|  1 |            1 |      0 | 500.25 |          6 |
+|  2 |            1 |      0 | 250.75 |          3 |
+|  3 |            1 |      0 | 300.00 |          8 |
+|  4 |            1 |      0 | 120.00 |         10 |
+|  5 |            2 |      0 | 275.00 |          5 |
+|  6 |            2 |      0 | 450.00 |          3 |
+|  7 |            2 |      0 | 295.00 |         12 |
+|  8 |            2 |      0 | 350.00 |          2 |
+|  9 |            3 |      0 | 450.00 |          3 |
+| 10 |            3 |      0 | 380.00 |          6 |
+| 11 |            3 |      0 | 230.00 |         12 |
+| 12 |            3 |      0 | 390.00 |          8 |
+| 13 |            4 |      0 | 590.75 |          3 |
+| 14 |            4 |      0 | 249.99 |          6 |
+| 15 |            4 |      0 | 310.00 |          3 |
+| 16 |            4 |      0 | 170.00 |          8 |
++----+--------------+--------+--------+------------+
+16 rows in set (0.000 sec)
+
+MariaDB [bd_reinaldo_20250718]> describe productos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| proveedor_id | int(11)       | NO   | MUL | NULL    |                |
+| nombre       | int(11)       | NO   |     | NULL    |                |
+| precio       | decimal(13,2) | NO   |     | NULL    |                |
+| existencia   | int(11)       | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.003 sec)
+
+MariaDB [bd_reinaldo_20250718]> use bd_alejandro_20250718;
+Database changed
+MariaDB [bd_alejandro_20250718]> select * from productos;
+Empty set (0.000 sec)
+
+MariaDB [bd_alejandro_20250718]> select * from proveedores;
++----+------------------+-------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion               | correo_electronico  | telefono     | persona_contacto |
++----+------------------+-------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV.LECUNA               | Info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV.ROMULO GALLEGOS      | info@whirpool.com   | 0212-9871234 | YOLANDATORTOZA   |
+|  3 | ELECTROLUX       | AV.PPAL.DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV.SAN MARTIN           | info@lg.com         | 0212-4431234 | MARIA ROMERO     |
++----+------------------+-------------------------+---------------------+--------------+------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [bd_alejandro_20250718]> show create table productos;
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                      |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| productos | CREATE TABLE `productos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proveedor_id` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `precio` decimal(13,2) NOT NULL,
+  `existencia` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_provedor_id` (`proveedor_id`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id`) REFERENCES `proveedores` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [bd_alejandro_20250718]> select * from productos;
++----+--------------+------------------+--------+------------+
+| id | proveedor_id | nombre           | precio | existencia |
++----+--------------+------------------+--------+------------+
+| 33 |            1 | NEVERA           | 500.25 |          6 |
+| 34 |            1 | CONGELADOR       | 250.75 |          3 |
+| 35 |            1 | LAVADORA 10K     | 300.00 |          8 |
+| 36 |            1 | COCINA A GAS     | 120.00 |         10 |
+| 37 |            2 | CONGELADOR       | 275.00 |          5 |
+| 38 |            2 | HORNO ELECTRICO  | 450.00 |          3 |
+| 39 |            2 | LAVADORA 10K     | 295.00 |         12 |
+| 40 |            2 | COCINA ELECTRICA | 350.00 |          2 |
+| 41 |            3 | NEVERA           | 450.00 |          3 |
+| 42 |            3 | LAVADORA         | 380.00 |          6 |
+| 43 |            3 | COCINA A GAS     | 230.00 |         12 |
+| 44 |            3 | COCINA ELECTRICA | 390.00 |          8 |
+| 45 |            4 | NEVERA           | 500.75 |          3 |
+| 46 |            4 | CONGELADOR       | 249.99 |          6 |
+| 47 |            4 | LAVADORA 10K     | 310.00 |          3 |
+| 48 |            4 | COCINA A GAS     | 170.00 |          8 |
++----+--------------+------------------+--------+------------+
+16 rows in set (0.000 sec)
+
+MariaDB [bd_alejandro_20250718]> USE BD_HENRY_20250714
+Database changed
+MariaDB [BD_HENRY_20250714]> select * from proveedores;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
+|  5 | DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | 0212-2431234 | RORAIMA ROJAS    |
+|  6 | HAIR             | AV. PPAL. DEL VALLE       | info@hair.com       | 0212-6431234 | SOFIA CHAN       |
+|  7 | SONY             | AV. FCO. DE MIRANDA       | info@sony.com       | 0212-2431234 | SUSANA MIR       |
+|  9 | MABE             | BOLEITA NORTE             | info@mabe.com       | 0212-7431234 | NORMA GAINFA     |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+8 rows in set (0.001 sec)
+
+MariaDB [BD_HENRY_20250714]> select * from proveedores;
++----+------------------+---------------------------+---------------------+--------------+------------------+
+| id | nombre           | direccion                 | correo_electronico  | telefono     | persona_contacto |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+|  1 | GENERAL ELECTRIC | AV. LECUNA                | info@ge.com         | 0212-5431234 | ANA VASQUEZ      |
+|  2 | WHIRPOOL         | AV. ROMULO GALLEGOS       | info@whirpool.com   | 0212-9871234 | YOLANDA TORTOZA  |
+|  3 | ELECTROLUX       | AV. PPAL. DE LAS MERCEDES | info@electrolux.com | 0212-2671234 | NELLY CONTRERAS  |
+|  4 | LG               | AV. SAN MARTIN            | info@lg.com         | 0212-4431234 | MAIBA ROMERO     |
+|  5 | DAMASCO          | AV. FCO. DE MIRANDA       | info@damasco.com    | 0212-2431234 | RORAIMA ROJAS    |
+|  6 | HAIR             | AV. PPAL. DEL VALLE       | info@hair.com       | 0212-6431234 | SOFIA CHAN       |
+|  7 | SONY             | AV. FCO. DE MIRANDA       | info@sony.com       | 0212-2431234 | SUSANA MIR       |
+|  9 | MABE             | BOLEITA NORTE             | info@mabe.com       | 0212-7431234 | NORMA GAINFA     |
++----+------------------+---------------------------+---------------------+--------------+------------------+
+8 rows in set (0.000 sec)
+
+MariaDB [BD_HENRY_20250714]>

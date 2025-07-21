@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web worker</title>
+
+</head>
+<body>
+  <h1>Api Web worker</h1>
+  <hr>
+  <ul>
+    <li> <a href="./ejemplo01.html">Regresar al menu</a> </li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"target=_blank>referencia documentacion API Web worker</a></li>
+    <li><a href="https://www.w3schools.com/js/js_api_web_workers.asp" target="_blank">Referencia www.w3schools.com</a></li>
+  </ul>
+  <hr>
+  <p>contador de numero: <output id="resultado"></output></p>
+  <button onclick="starworker()">Iniciar trabajador web (webworker)</button>
+  <button onclick="stopworker()">Detener trabajador web</button>
+  <script>
+    //Declaracion de variable local
+    let w;
+    // Declaracion de funciones
+    function starworker(){
+      // Extra el selecttor cuyo nombre es "resultado"
+      const x = document.getElementById("resultado");
+      // Se verifica si el navegador soporta Web worker
+      if (typeof(Worker)!=="undefined"){
+        // Se crea el Web worker
+        if(typeof(w) == "undefined"){
+          w = new Worker("./js/demo_workers.js");
+        }
+      }else{
+        x.innerHTML = "disculpe, Api Web worker, no es soportada por su navegador web.";
+      }
+      w.onmessage = function(event){
+        x.innerHTML = event.data;
+      }  
+    }
+    function stopworker(){
+      w.terminate();
+      w = undefined;
+    }
+  </script>
+</body>
+</html>

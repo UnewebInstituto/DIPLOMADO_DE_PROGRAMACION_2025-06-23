@@ -1,0 +1,3 @@
+C:\DIPLOMADO_DE_PROGRAMACION_2025-06-23\MYSQL>cd mysql
+El sistema no puede encontrar 
+la ruta especificada

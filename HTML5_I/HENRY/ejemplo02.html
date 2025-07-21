@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width:150px;
+            height: 150px;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/ejemplo02.css">
+</head>
+<body>
+    <!-- Las etiquetas desde h1 hasta h6, se utilizan para
+    escribir títulares, el h1 representa alta prioridad,
+    mientras que h6, es baja prioridad.
+    La etiqueta p, respresenta párrafos y se emplean para
+    contenido.
+    La instrucción lorem, acompañada de un número, permite
+    generar texto de relleno.
+    Etiquetas de tipografía:
+    <b></b> : Negrilla
+    <u></u> : Sub rayado
+    <s></s> : Tachado
+    <i></i> : Itálica
+
+    Etiquetas de listas:
+    - Listas Ordenadas <ol></ol>
+    - Listas No Ordenadas <ul></ul>
+    - Elementos de lista <li></li>
+    Se trata de etiquetas anidadas:
+    <ol> o puede ser <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+            ...
+        <li>Item n</li>
+    </ol>           </ul>
+
+
+    https://developer.mozilla.org/en-US/
+    https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol
+
+    https://www.w3schools.com/html/default.asp
+    -->
+    <h1>Introducción a la Computación</h1>
+    <h2 id="inicio">Contenido</h2>
+    <ol type="I">
+        <a href="#defhw"><li>Definición de Hardware</li></a>
+        <a href="#ejhw"><li>Ejemplos de Hardware</li></a>
+        <a href="#defsw"><li>Definición de Software</li></a>
+        <a href="#ejsw"><li>Ejemplos de Software</li></a>  
+        <a href="#so"><li>Sistemas Operativos</li></a>    
+    </ol>
+    <a href="#inicio"><h2 id="defhw" title="Para ir al inicio, haga un clic sobre este título">Definición de Hardware</h2></a>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, nam mollitia rerum eveniet maxime magni quos dicta odio quidem illum <b>PRUEBA DE NEGRILLA</b> dolorem fuga cupiditate est inventore aut consequatur modi minima voluptates sapiente, doloremque harum? Saepe unde perspiciatis natus earum laudantium id nisi labore porro aspernatur commodi, aliquid explicabo, facere provident reiciendis.</p>
+    <a href="#inicio"><h2 id="ejhw" title="Para ir al inicio, haga un clic sobre este título">Ejemplos de Hardware</h2></a>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur totam iusto nesciunt dicta harum doloribus placeat, et suscipit sequi, <i>PRUEBA DE ITÁLICA</i> nemo sunt debitis quod accusantium velit expedita quo possimus facilis aliquam alias beatae inventore, cupiditate atque quibusdam. In, assumenda minima? Quaerat harum consectetur omnis cupiditate similique, eligendi quos ea rerum a voluptatum repudiandae fugiat reiciendis modi, officiis aut ut amet doloribus laborum quis facilis natus totam? Doloremque adipisci assumenda repellendus. Similique!</p>
+    <a href="#inicio"><h2 id="defsw" title="Para ir al inicio, haga un clic sobre este título">Definición de Software</h2></a>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sit magnam quam dolore obcaecati, laudantium modi voluptatum perspiciatis <u>PRUEBA DE SUB RAYADO</u> unde incidunt pariatur voluptatibus eos repellendus aut praesentium recusandae tenetur? Minus officiis aliquam repellendus sunt consequatur, quaerat animi nihil accusantium beatae incidunt ipsam corporis veritatis sed facilis quia illum sit fugit pariatur consequuntur? Ullam, ipsum illum. Vel maxime omnis in quam a modi hic. Dolor dignissimos dicta nulla ut et, culpa saepe laborum dolores at ducimus, incidunt accusamus nobis? Repellat unde perferendis hic deserunt, dolores praesentium itaque maiores, consectetur aspernatur modi enim.</p>
+    <a href="#inicio"><h2 id="ejsw" title="Para ir al inicio, haga un clic sobre este título">Ejemplos de Software</h2></a>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia ex temporibus, impedit aut quis debitis. Deserunt neque impedit commodi, voluptas eaque sequi necessitatibus repellat <s>PRUEBA DE TACHADO</s> magnam ducimus. Cum minus quibusdam sequi laudantium doloremque. Libero aut quas voluptatibus reiciendis, amet ducimus blanditiis labore sequi quia eligendi, cum fugit provident iusto velit accusamus adipisci a commodi obcaecati unde? Quidem dicta vero saepe dignissimos consectetur recusandae, possimus, optio laboriosam tempora rem eveniet esse ut. Culpa deserunt animi vel similique consequuntur esse. Excepturi praesentium, dicta tempore numquam beatae exercitationem fugiat sequi hic nostrum repellendus sint ipsa dolorum dolorem distinctio tempora non ex fuga porro! Commodi ut doloremque aliquid similique ad excepturi, ab non voluptatem iure.</p>
+    <!--
+        Declaración de CSS en archivo HTML:
+        1ra. Forma: A través del atributo style=""
+        2da. Forma: A través de la etiqueta <style>
+        3ra. Forma: A través de la etiqueta <link>, que 
+        hace referencia a un archivo de extensión .css
+        el cual contiene las propiedades de estilo a 
+        aplicar.
+    -->
+    <a href="#inicio"><h2 style="color:#8080ff;" id="so" title="Para ir al inicio, haga un clic sobre este título">Sistemas Operativos</h2></a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Microsoft Windows</td>
+                <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui eaque repellat cumque voluptatibus cupiditate obcaecati officiis laboriosam quidem quia. Magnam harum delectus corrupti libero facilis amet quia repellat accusamus perferendis eligendi voluptate unde cumque, cum aut iusto? Obcaecati debitis, delectus fugiat, aperiam sint facilis quam repudiandae quia amet, culpa error laboriosam recusandae molestias magni. Voluptas, sapiente saepe! Quisquam, repellendus exercitationem doloribus iste minima nulla! Explicabo, cumque eius. Nulla sapiente, reiciendis rem aliquid voluptas explicabo vitae possimus dolores necessitatibus quis inventore odit numquam expedita doloremque animi officia! Numquam natus temporibus suscipit cupiditate modi dicta. Minima rem eius consequuntur amet delectus consectetur.</td>
+                <td><img src="../img/windows.jfif" alt=""></td>
+            </tr>
+            <tr>
+                <td>Linux</td>
+                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam perspiciatis dicta eos quia id maiores quo, ipsum error inventore dolore. Aut sit quidem consequuntur soluta vero cupiditate, corporis voluptatum dolores laboriosam consequatur odit reiciendis eaque possimus ad, maxime incidunt voluptatem recusandae enim nobis laudantium beatae. Praesentium saepe sunt aspernatur illum, consequuntur consectetur unde minima modi deleniti laboriosam labore sint, nobis consequatur quod libero maxime magni voluptatum adipisci. Sequi repudiandae iure quo aliquid accusantium enim, quod assumenda, dolor, iusto in voluptates?</td>
+                <td><img src="../img/linux.jfif" alt=""></td>
+            </tr>
+            <tr>
+                <td>MacOSx</td>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eveniet totam assumenda velit culpa a adipisci numquam provident quibusdam ipsa aliquam, rerum suscipit quam obcaecati? Nisi beatae consequuntur nostrum inventore error blanditiis suscipit officiis consectetur repudiandae temporibus. Perferendis, hic autem vitae sint assumenda beatae consequatur atque nam voluptate cum. Magni, similique sunt? Reprehenderit nam quam mollitia ut quasi maiores temporibus ex excepturi harum et ea doloremque eos architecto perferendis, error saepe repudiandae ipsa dolores adipisci minus pariatur enim! Corporis nam laboriosam culpa veritatis? Quo ab sint facilis asperiores quia, reiciendis voluptate cum deleniti pariatur quis vero adipisci minima atque consequuntur molestias reprehenderit obcaecati illum doloremque quibusdam laborum odio? Autem nostrum dicta libero aut unde, eum neque saepe eligendi sit magni!</td>
+                <td><img src="../img/macosx.jfif" alt=""></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

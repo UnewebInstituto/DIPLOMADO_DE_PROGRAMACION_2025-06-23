@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalizacion</title>
+</head>
+<body>
+    <h1>API Geolocalizacion</h1>
+   <!--se debe incluir la etiqueta <canvas></cavas> para hacer uso de esta api,que hace las veces de un lienzo sdobre el cual se puede trabajar-->
+    <hr>
+    <button id="btn_geolocalizacion" onclick="ubicar()">ubicar</button>
+    <button id="btn_mapa" onclick="mapa()" hidden> ver mapa </button>
+    <hr>
+    <ul>
+   <li> <a href="./ejemplo01.html"> Regresar al menu</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API" target="_blank">referencia documentacion api Geolocalizacion</a></li>
+    </ul>
+    <hr>
+    <div id="resultado">
+
+    </div> 
+    <script>
+
+        function ubicar(){
+            /*verificacion de si el navegador soporta geolocalizacion*/
+            if (!navigator.geolocation){
+                /*navegador no soporta geolocalizacion*/
+                document.getElementById('resultado').innerHTML= "Atencion: Navegador web no soporta Geolocalizacion."}
+                else{
+                    /*navegador web si soporta geolocalizacion*/
+                    navigator.geolocation.getCurrentPosition(obtener_ubicacion,obtener_error);
+
+                }
+            }
+            
+        function obtener_ubicacion(posicion){
+            
+            url ="https://www.openstreetmap.org/#map=17/";
+            latitud =posicion.coords.latitude;
+            longitud=posicion.coords.longitude;
+            document.getElementById('resultado').innerHTML= "<b>latitud</b>"
+            +latitud + "<br><b>longitud:</b>" + longitud;
+            document.getElementById('btn_mapa').hidden = false;
+
+        }
+           
+        function mapa(){
+            url = url + latitud + "/" + longitud;
+            window.open (url);
+        }
+        function obtener_error(error){
+            console.log(error);
+            switch (error.code) {
+                case 1:
+                document.getElementById('resultado').innerHTML = 'usuario nego el acceso a gelocalizacion';
+                break;
+
+                case 2: 
+                document.getElementById('resultado').innerHTML= 'ubicacion de geolocalizacion no disponible.';
+                break;
+                case 3:
+                document.getElementById('resultado').innerHTML= 'se excedio el tiempo de espera.';
+                break;
+
+                default:
+                document.getElementById('resultado').innerHTML= 'error desconocido.';
+                    
+                    break;
+            
+                
+            
+            }
+        }
+        var latitud, longitud, url ;
+
+    </script>  
+</body>
+</html>

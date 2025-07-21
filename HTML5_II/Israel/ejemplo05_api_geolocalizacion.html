@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geolocalización</title>
+</head>
+<body>
+  <h1>Api Geolocalización</h1>
+  <!-- Se debe incluir la etiqueta <canvas></canvas>, para hacer uso  de esta API, que hace las veces de un lienzo, sobre el cual se puede dibujar -->
+  <hr>
+  <button id="btn_geolocalizacion" onclick="ubicar()">Ubicar</button>
+  <button id="btn_mapa" onclick="mapa()" hidden>Ver mapa</button>
+  <hr>
+  <ul>
+   <li><a href="./ejemplo01.html">Regresar al menú</a></li> 
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API" target="_blank">Referencias Documentación API Geolocalización</a></li>
+  </ul>
+  <hr>
+  <div id="resultado"></div>
+  <script>
+    function ubicar(){
+      /* Verificación de si el navegador soporta Geolocalización */
+      if (!navigator.geolocation){
+        /* Navegador no soporta Geolocalización */
+        document.getElementById('resultado').innerHTML = "Atención: Navegador web no soporta Geolocalización.";
+      }else{
+        /* Navegador web si soporta Geolocalización */
+        navigator.geolocation.getCurrentPosition(obtener_ubicacion,obtener_error);
+      }
+    }
+
+    function obtener_ubicacion(posicion){
+      console.log(posicion)
+      url = "https://www.openstreetmap.org/#map=17/";
+      latitud = posicion.coords.latitude;
+      longitud = posicion.coords.longitude;
+      document.getElementById('resultado').innerHTML = "<b>Latitud:</b>" + latitud + "<br><b>longitud:</b>" + longitud;
+
+      document.getElementById('btn_mapa').hidden = false;
+    }
+    function mapa(){
+      url = url + latitud + "/" + longitud;
+      window.open(url);
+    }
+
+    function obtener_error(error){
+      console.log(error);
+      switch (error.code) {
+        case 1:
+          document.getElementById('resultado').innerHTML = 'Usuario negó el acceso a geolocalización.';
+          break;
+        case 2:
+          document.getElementById('resultado').innerHTML = 'Ubicación de Geolocalización no disponible.';
+        case 3:
+          document.getElementById('resultado').innerHTML = 'Se exedio el tiempo de espera.';
+        default:
+          document.getElementById('resultado').innerHTML = 'Error desconocido.';
+          break;
+      }
+    }
+    // Declaración de variables públicas
+    var latitud, longitud, ul;
+  </script>
+</body>
+</html>

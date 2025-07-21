@@ -1,0 +1,11 @@
+/*
+la isntruccion que se encuentra a continuacion hace referencia, a que las etiquetas td y th, tengana las propiedades css, declaradas entre llaves
+*/
+*{
+   font-family: Arial, Helvetica, sans-serif;
+}
+td,th{
+    border-style:solid;
+    border-width:2px;
+     border-color:gray;
+}

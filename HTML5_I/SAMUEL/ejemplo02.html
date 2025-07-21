@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img{
+      width: 150px;
+      height: 150px;
+      border-style: solid;
+      border-width: 2px;
+      border-radius: 50%;
+    }
+  </style>
+  <link rel="stylesheet" href="./CSS/ejemplo02.css">
+</head>
+<body>
+  <!--Las etiquetas desde h1 hasta h6, se utilizan para escribir titulares, el h1 representa alta prioridad, mientras que h6, es baja prioridad.
+  la etiqueta p, representa parrafo y se emplea contenido.
+  La instruccion lorem, acompañada de un número, permite generar texto de relleno.
+  Etiquetas de tipografia;
+  <b></b> : Negrilla
+  <u></u> : Sub rayo
+  <s></s> : Tachado
+  <i></i> : Itálica
+
+  Etiquetas de listas:
+  -Listas Ordenadas <ol></ol>
+  -listas No Ordenadas <ul></ul>
+  -Elementos de lista <li></li>
+  Se trata de etiquetas anidadas:
+  <ol> o puede ser <ul>
+    <li>Item 1</li>
+    <li>Item 2<li>
+      ...
+      <li>Item n</li>
+    </ol>        </ul>
+-->
+  <h1>Introduccion a la computacion</h1>    
+  <h2 id="inicio">Contenido</h2>
+  <ol type="I">
+    <a href="#defhw"><li>Definicion de Hardware</li></a>
+    <a href="#ejhw"><li>Ejemplo de Hardware</li></a>
+    <a href="#defsw"><li>Definicion de Software</li></a>
+    <a href="#ejsw"><li>Ejemplo de Software</li></a>
+    <a href="#so"><li>Sistemas Operativos</li></a>
+  </ol>
+  <a href="#inicio"><h2 id="defhw" title="para ir al inicio haga un clic sobre este titulo">Definicion de Hardware</h2></a>
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem, assumenda deleniti ducimus eligendi blanditiis dignissimos tempore recusandae ipsam vero quia <b> Prueba de Negrilla </b> commodi sit voluptates suscipit repudiandae, accusamus magnam odio! Earum ea consequuntur laborum praesentium accusamus harum aperiam voluptatum commodi expedita fuga. Distinctio explicabo et nobis fugiat eligendi quam expedita consectetur.</b>
+  <a href="#inicio"><h2 id="ejhw" title="para ir al inicio haga un clic sobre este titulo">Ejemplos de Hardware</h2></a>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam odit enim placeat sit porro consequuntur dolorum minus quod iste maiores, aliquam id <u> Sub rayo</u> quam et molestiae officia iusto eos. Enim rerum commodi sunt sed, unde reiciendis non voluptatem alias iusto pariatur incidunt molestiae hic sit consequuntur harum eius quasi mollitia laudantium maiores facere. Dolorum officia dolor, ullam expedita fugit, voluptates soluta cumque iure dolorem rerum ipsa. Magnam voluptatum quae quis.</p>
+  <a href="#inicio"><h2 id="defw" title="para ir al inicio haga un clic sobre este titulo">Definicion de Software</h2></a>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci a tenetur mollitia vitae quibusdam aliquam ipsam ab incidunt necessitatibus, perspiciatis commodi voluptatum ipsum suscipit veritatis quis dolorum blanditiis, quod distinctio! Eaque <s> Tachado </s>quo vel perferendis? Quibusdam error iste accusantium nesciunt eaque possimus autem quia recusandae saepe ea inventore, similique voluptatum voluptatibus neque voluptate quae necessitatibus aliquam molestiae, ex harum, repellendus non perspiciatis! Ipsa doloremque, aliquid neque at molestias quasi, assumenda consectetur recusandae voluptatum libero hic, expedita ratione iste! Numquam ad temporibus doloribus eaque voluptas accusantium veniam neque fugit, molestias excepturi voluptatem?</p>
+  <a href="#inicio"><h2 id="ejsw" title="para ir al inicio haga un clic sobre este titulo">Ejemplos de Software</h2></a>
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet alias distinctio non fugiat. Adipisci aspernatur sit nam minus totam similique ab nisi culpa dolor! Nulla, accusamus non illo excepturi ab dicta deserunt sapiente consequuntur sed <i> Italica </i> repellat. Laudantium quidem, esse corrupti distinctio rerum fuga iure! Quos quam asperiores, assumenda cupiditate debitis delectus vero voluptatum, vitae repudiandae repellat ratione, quas voluptas reiciendis. Exercitationem deserunt ut aliquid illum ratione suscipit, soluta ipsa! Nihil magni repellendus tempore earum minus, voluptas quam explicabo architecto voluptate, odit eum culpa molestiae quasi voluptatibus aperiam dolore error voluptates minima voluptatum quod, harum nostrum dolores dolorem! Officiis alias dolorem odio ipsum voluptatem voluptate doloribus quam vitae expedita, dolores repudiandae.</p>
+  <!--
+    Declaracion de CSS en archivo HTML:
+    1ra. Forma: A traves del atributo style=""
+    2da. Forma: A traves de la etiqueta <style>
+    3ra. Forma: A traves de la etiqueta <link>, que hace
+    referencia a un archivo de extencion. CSS el cual
+    contiene las propiedades de estilo a aplicar.
+  -->
+  <a href="#inicio"><h2 style="color:#8080ff;" id="so" title="para ir al inicio haga un 
+    clic sobre este titulo">Sistemas Operativos</h2></a>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Microsoft Window</td>
+        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio maiores minima a obcaecati nam est, dolor adipisci laborum debitis. Dolore voluptatum voluptas fugit soluta, doloribus aliquid cupiditate, optio neque esse provident sint commodi alias expedita, quam totam consequuntur odio nihil voluptatibus repellendus similique necessitatibus illum earum! Quibusdam odit veniam, adipisci aspernatur laboriosam atque nisi quo id doloremque cum. Animi, nesciunt? Pariatur quod itaque dignissimos ducimus laudantium recusandae ipsam fugiat, velit a quis fugit tempore, consequatur totam suscipit possimus illum aliquid debitis dolorum magnam quam perspiciatis aliquam hic quae magni! Obcaecati facilis deleniti magnam aliquam nobis rem vel aperiam ut tempora.</td>
+        <td><img src="../img/windows.jfif" alt=""></td>
+    </tr>
+      <tr> 
+        <td>Linux</td>
+        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa minus pariatur ad iste at, blanditiis possimus dignissimos consequuntur a molestias quisquam consectetur asperiores quae eligendi repellendus sit facere! Consectetur animi id aliquid excepturi quaerat impedit dolores officiis. Culpa, alias reprehenderit fugiat quae at minus qui labore ipsum voluptate perspiciatis, corporis officia nam deserunt iure? Vitae porro non ab tempore reiciendis soluta ipsa, tempora facilis, sequi animi vero qui modi. At doloribus blanditiis voluptatem quis quod atque excepturi. Iure, voluptatibus! Accusantium.</td>
+        <td><img src="../img/linux.jfif" alt=""></td>
+    </tr>
+      <tr> 
+        <td>MacOsx</td>
+        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas itaque suscipit, neque ex expedita perferendis necessitatibus obcaecati provident aliquam iure rem consequatur, assumenda deserunt, a dolore veniam cumque hic illo facilis ullam. Cum, maiores quod assumenda adipisci ipsa possimus recusandae. Numquam voluptatibus laborum veritatis tempora soluta, iste ipsam eius dicta consequatur non in. Eveniet ullam inventore eum officia voluptas ducimus quam nihil ab laboriosam quos illum ut, facilis ex fugiat excepturi eos voluptatibus temporibus, consectetur assumenda mollitia perspiciatis quas. Quis dolorum obcaecati nulla distinctio molestias totam autem a beatae porro, laudantium et excepturi nam mollitia iusto aut quibusdam voluptatibus? Fugit eos amet, suscipit repellendus quia odio magnam officia debitis sint architecto aliquam voluptatum? Praesentium deleniti enim ipsam repudiandae, obcaecati voluptas!</td>
+        <td><img src="../img/macosx.jfif" alt=""></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

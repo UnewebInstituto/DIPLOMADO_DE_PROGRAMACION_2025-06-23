@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <h1>Api Canvas</h1>
+    <!-- Se debe incluir la etiqueta <canvas></canvas>, para hacer uso
+    de esta API, que hace las veces de un lienzo, sobre el cual se 
+    puede dibujar -->
+    <hr>
+    <button id="btn_dibuja" onclick="dibujar()">Dibujar</button>
+    <hr>
+    <ul>
+        <li><a href="./ejemplo01.html">Regresar al menú</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank">Referencia documentación API Canvas</a></li>
+    </ul>
+    <hr>
+    <canvas id="lienzo" width="600px" height="600px"></canvas>
+    <script>
+        function dibujar(){
+            const canvas = document.getElementById('lienzo');
+            const ctx = canvas.getContext('2d');
+            // ctx.fillStyle='blue';
+            // ctx.fillRect(0,0,100,100);
+            var colores = ['yellow','blue','red','green','orange','purple'];
+            var x, y, contador;
+            x = 0;
+            y = 0;
+            contador = 0;
+            while (contador < 6) {
+                ctx.fillStyle = colores[contador];
+                ctx.fillRect(x,y,100,100);
+                x = x + 100;
+                y = y + 100;
+                contador = contador + 1;
+            }
+        }
+    </script>
+</body>
+</html>

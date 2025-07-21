@@ -1,0 +1,14 @@
+PARA CONSULTAR UNA TABLA EN ESPECIFICO
+
+MariaDB [bd_reinaldo_20250714]> select nombre, correo_electronico from proveedores;
++------------------+---------------------+
+| nombre           | correo_electronico  |
++------------------+---------------------+
+| General Electric | info@ge.com         |
+| Whirpool         | info@whirpool.com   |
+| Electrolux       | info@electrolux.com |
+| LG               | info@gmail.com      |
+| DAMASCO          | info@damasco.com    |
+| HAIR             | info@hair.com       |
++------------------+---------------------+
+6 rows in set (0.000 sec)

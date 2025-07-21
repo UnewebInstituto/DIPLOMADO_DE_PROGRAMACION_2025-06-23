@@ -1,0 +1,1 @@
+C:\xampp\mysql\bin\mysql -u root -p bd_henry_20250714_copia < backups/respaldo_20250715.sql

@@ -1,0 +1,21 @@
+samuelfar.lopez@gmail.com;
+ysraelfar@gmail.com;
+alex-3567@outlook.com;
+
+
+echo "# DIPLOMADO_DE_PROGRAMACION_2025-06-23" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+
+git remote remove origin
+
+git remote add origin https://github.com/UnewebInstituto/DIPLOMADO_DE_PROGRAMACION_2025-06-23.git
+
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/UnewebInstituto/DIPLOMADO_DE_PROGRAMACION_2025-06-23.git
+git branch -M main
+git push -u origin main
