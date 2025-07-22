@@ -1,0 +1,1 @@
+"C:\Program Files\PostgreSQL\17\bin\pg_restore" -h localhost -p 5432 -U postgres -d bd_henry_20250721_2 -v "respaldos\respaldo_20250721.dump"

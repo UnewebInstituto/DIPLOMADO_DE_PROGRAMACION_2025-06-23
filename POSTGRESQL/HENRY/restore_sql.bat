@@ -1,0 +1,1 @@
+"C:\Program Files\PostgreSQL\17\bin\psql" -h localhost -p 5432 -U postgres bd_henry_20250721_1 < respaldos/respaldo_20250721.sql

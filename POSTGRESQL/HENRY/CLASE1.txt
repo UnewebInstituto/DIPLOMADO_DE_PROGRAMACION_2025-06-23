@@ -490,3 +490,96 @@ General
   \gset [PREFIX]         execute query and store result in psql variables
   \gx [(OPTIONS)] [FILE] as \g, but forces expanded output mode
 -- Más  -- 
+
+
+-----
+
+¡Ah, el clásico error de "rejected" en Git\! Como experto en Git, te diré que este mensaje es una de las cosas más comunes que ven los desarrolladores, y afortunadamente, tiene una solución clara. El mensaje `! [rejected] main -> main (fetch first)` significa que **la rama remota `main` tiene cambios que tú no tienes en tu rama `main` local**. Git está protegiéndote de sobrescribir el trabajo de otra persona (o tus propios cambios si trabajas desde varias máquinas).
+
+Este error no es algo que debas "corregir" forzando un `push` a menos que sepas exactamente lo que estás haciendo y estés dispuesto a perder el trabajo remoto. La mayoría de las veces, la solución es simplemente **integrar los cambios remotos en tu rama local**.
+
+Aquí te explico las opciones, desde la más segura y recomendada hasta la que solo debes usar si entiendes las implicaciones de sobrescritura.
+
+-----
+
+### **La Solución Recomendada: `git pull`**
+
+La forma estándar y más segura de resolver este problema es seguir la sugerencia de Git: **traer los cambios remotos y fusionarlos con los tuyos antes de intentar subir de nuevo**.
+
+1.  **Asegúrate de tener tus cambios guardados:**
+    Antes de hacer un `pull`, es una buena práctica asegurarte de que tus cambios locales estén guardados. Si tienes cambios sin confirmar, haz un `git commit` primero:
+
+    ```bash
+    git add .
+    git commit -m "Mis cambios locales antes de hacer pull"
+    ```
+
+    Si no quieres hacer un commit de tus cambios aún, puedes usar `git stash` para guardarlos temporalmente y restaurarlos después del `pull`:
+
+    ```bash
+    git stash save "Mis cambios antes de pull"
+    ```
+
+2.  **Haz un `git pull`:**
+    Este comando hará dos cosas:
+
+      * **`git fetch`**: Descarga los cambios del repositorio remoto a tu repositorio local (pero no los aplica a tu rama de trabajo).
+      * **`git merge`** (por defecto): Intenta fusionar los cambios descargados en tu rama actual.
+
+    <!-- end list -->
+
+    ```bash
+    git pull origin main
+    ```
+
+    Si el `pull` es exitoso, los cambios remotos se habrán integrado con los tuyos. Puede que Git realice un **"fast-forward merge"** si no hay conflictos (lo más común), o te pida que resuelvas **conflictos de fusión** si tanto tú como el remoto modificaron las mismas líneas en el mismo archivo.
+
+3.  **Resuelve conflictos (si los hay):**
+    Si hay conflictos, Git te lo indicará. Deberás abrir los archivos con conflictos, resolverlos manualmente (buscando las marcas `<<<<<<<`, `=======`, `>>>>>>>`), y luego:
+
+    ```bash
+    git add . # Marca los archivos resueltos
+    git commit -m "Merge branch 'main' of https://github.com/... into main" # Git te sugerirá el mensaje, solo confírmalo
+    ```
+
+4.  **Intenta el `push` de nuevo:**
+    Una vez que los cambios remotos estén integrados y cualquier conflicto resuelto, podrás subir tus cambios sin problemas:
+
+    ```bash
+    git push origin main
+    ```
+
+-----
+
+### **¿Cuándo Forzar el Push (`git push --force`)?**
+
+**¡Advertencia\!** Forzar un `push` (`git push --force` o `git push --force-with-lease`) es una operación peligrosa que **reescribe el historial del repositorio remoto**. Debes entender las consecuencias antes de usarla.
+
+**Usa `git push --force` solo si:**
+
+  * **Eres el único que trabaja en esa rama remota** y estás absolutamente seguro de que nadie más ha hecho cambios que necesiten ser preservados.
+  * **Sabes que los cambios remotos son incorrectos o obsoletos** y quieres reemplazarlos completamente con tu versión local (efectivamente, borrando el historial remoto más reciente).
+  * **Has reescrito tu historial local** (por ejemplo, con `git rebase -i` o `git commit --amend`) y necesitas que el remoto refleje tu nuevo historial. En este caso, si otros ya han bajado tu versión antigua, les causarás problemas.
+
+**Cómo Forzar el Push:**
+
+1.  **Asegúrate de estar en la rama correcta y de que tu historial local sea el que deseas que prevalezca.**
+2.  **Ejecuta el comando para forzar el push:**
+    ```bash
+    git push origin main --force
+    # O, la opción más segura para la mayoría de los casos de fuerza:
+    git push origin main --force-with-lease
+    ```
+      * `--force-with-lease` es preferible a `--force` porque **solo forzará el push si el branch remoto no ha sido actualizado por otros desde tu último `pull`**. Esto ofrece una pequeña capa de seguridad para no sobrescribir ciegamente cambios de otros.
+      * `--force` sobrescribirá sin importar si hay cambios nuevos en el remoto.
+
+-----
+
+### **En Resumen y Recomendación Final:**
+
+El error `! [rejected] main -> main (fetch first)` es el mecanismo de seguridad de Git para evitar que pierdas trabajo.
+
+  * **Siempre intenta `git pull origin main` primero.** Resuelve cualquier conflicto que aparezca. Esta es la práctica estándar y más segura.
+  * **Solo usa `git push --force` (o mejor `git push --force-with-lease`) cuando comprendas las implicaciones de reescribir el historial remoto y estés seguro de que es lo que necesitas hacer.** Es una herramienta poderosa que puede causar dolores de cabeza a tu equipo si se usa incorrectamente.
+
+Si sigues la recomendación de `git pull`, tu flujo de trabajo con Git será mucho más limpio y evitarás problemas de sobrescritura de código.

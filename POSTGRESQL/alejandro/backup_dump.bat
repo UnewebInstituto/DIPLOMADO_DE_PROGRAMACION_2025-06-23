@@ -1,0 +1,1 @@
+"C:\Program Files\PostgreSQL\17\bin\pg_dump" -h localhost -p 5432 -U postgres -F c -b -v -f respaldos/respaldo_20250721.dump bd_alejandro_20250721
