@@ -47,15 +47,6 @@ unique (correo_electronico)
 );
 
 --otra forma
-create table contactos (
-id serial primary key,
-nombre varchar(80),
-apellido varchar(80),
-fecha_nacimiento date,
-direccion text,
-telefono varchar(30),
-correo_electronico varchar(80) unique
-);
 
 --ver todas las tablas contenidas en la bd
 \dt

@@ -1,0 +1,5 @@
+"C:\\DIPLOM~1\\POSTGR~1\\HENRY\\RESPAL~1\\RESPAL~3.SQL" --host "localhost" --port "5432" --username "postgres" --no-password --role "postgres" --format=p --encoding "UTF8" --verbose "bd_henry_20250721"
+
+"C:\Program Files\PostgreSQL\17\bin\pg_dump" -h localhost -p 5432 -U postgres -F p bd_henry_20250721 > respaldos/respaldo_20250722.sql
+
+"C:\Program Files\PostgreSQL\17\bin\pg_dump" -h localhost -p 5432 -U postgres -F p bd_henry_20250721 > respaldos/respaldo_20250723_1.sql

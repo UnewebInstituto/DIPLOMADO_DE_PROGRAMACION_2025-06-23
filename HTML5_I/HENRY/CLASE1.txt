@@ -2,7 +2,6 @@ samuelfar.lopez@gmail.com;
 ysraelfar@gmail.com;
 alex-3567@outlook.com;
 
-
 echo "# DIPLOMADO_DE_PROGRAMACION_2025-06-23" >> README.md
 git init
 git add README.md

@@ -1,1 +1,1 @@
-"C:\Program Files\PostgreSQL\17\bin\psql" -h localhost -p 5432 -U postgres bd_alejandro_20250721_1 < respaldos/respaldo_20250721.sql
+"C:\Program Files\PostgreSQL\17\bin\psql" -h localhost -p 5432 -U postgres bd_alejandro_20250721_3 < ../henry/respaldos/respaldo_20250723.sql
